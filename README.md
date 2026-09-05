@@ -19,9 +19,9 @@ cd network-configs
 ```
 
 В Shadowrocket импортируйте нужный профиль: `shadowrocket/mobile.conf`,
-`shadowrocket/wifi.conf` или `shadowrocket/home.conf`.
-Намеренное поведение и зависимости профилей описаны в [mobile](docs/mobile.md) и
-[wifi](docs/wifi.md) и [home](docs/home.md). Подписки и сами VPN-серверы восстановите отдельно в приложении:
+`shadowrocket/wifi.conf` или `shadowrocket/wifi-remote.conf`.
+Намеренное поведение и зависимости профилей описаны в [mobile](docs/mobile.md),
+[wifi](docs/wifi.md) и [wifi-remote](docs/wifi-remote.md). Подписки и сами VPN-серверы восстановите отдельно в приложении:
 Git хранит правила маршрутизации, а не доступ к VPN. Для Netcraze используйте списки
 `netcraze/vpn-*.txt` в прежних настройках маршрутизации; это не полный backup роутера.
 
@@ -33,8 +33,8 @@ backup. Серверную ОС и сервисы этот репозитори�
 ## Профили Shadowrocket
 
 - `shadowrocket/mobile.conf` — мобильная сеть.
-- `shadowrocket/wifi.conf` — внешний Wi-Fi + удалённый доступ к домашней LAN.
-- `shadowrocket/home.conf` — домашний Wi-Fi + локальная LAN напрямую.
+- `shadowrocket/wifi.conf` — обычный Wi-Fi, без удалённого доступа к домашней LAN; локальная LAN напрямую.
+- `shadowrocket/wifi-remote.conf` — Wi-Fi с удалённым доступом к домашней LAN.
 
 ## Правила
 
