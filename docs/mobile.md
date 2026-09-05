@@ -6,7 +6,7 @@
 
 ## DNS, IP и локальная сеть
 
-Обычный DIRECT использует системный DNS мобильной сети (`dns-server = system`). Единственный резервный DNS — Google DoH: `https://dns.google/dns-query#no-h3`. Включены `dns-direct-system` и `dns-fallback-system`, а `dns-direct-fallback-proxy` выключен. Проксируемые доменные правила используют `force-remote-dns`.
+Обычный DIRECT использует системный DNS мобильной сети (`dns-server = system`). Единственный резервный DNS — Google DoH: `https://dns.google/dns-query#no-h3`. `dns-direct-system` включён, `dns-fallback-system` и `dns-direct-fallback-proxy` выключены. Дополнительный автоматический fallback в system не нужен: Google DoH уже явно задан как резерв. Проксируемые доменные правила используют `force-remote-dns`.
 
 IPv6 намеренно отключён: `ipv6 = false`, `prefer-ipv6 = false`. Ответы DNS с частными IP разрешены (`private-ip-answer = true`). Локальная сеть не блокируется: localhost, домены `.arpa`, `.lan`, `.local`, частные, link-local и multicast адреса IPv4/IPv6 обрабатываются напрямую. DIRECT-правила IPv6 сохраняют это намерение при отключённом IPv6.
 
@@ -23,6 +23,8 @@ IPv6 намеренно отключён: `ipv6 = false`, `prefer-ipv6 = false`.
 
 Правила применяются сверху вниз до первого совпадения. Таблица отражает их порядок.
 
+Google, Meta, OpenAI, Telegram и весь YouTube всегда идут через VPN с политикой `Mobile`.
+
 | Трафик | Маршрут |
 | --- | --- |
 | Локальные и служебные домены и адреса | DIRECT |
@@ -32,6 +34,7 @@ IPv6 намеренно отключён: `ipv6 = false`, `prefer-ipv6 = false`.
 | Meta по доменам | Mobile |
 | OpenAI: `cdn.openaimerge.com`, затем `geosite-openai.list` | Mobile |
 | Telegram по доменам | Mobile |
+| YouTube | Mobile |
 | Mobile whitelist: `geosite-ru-mobile-whitelist.list` | DIRECT |
 | `inside-clashx.lst`: ресурсы, проблемные или ограниченные из России | Mobile |
 | `no-russia-hosts`: ресурсы, ограничивающие доступ с российских IP | Mobile |
