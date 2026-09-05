@@ -3,16 +3,37 @@
 # Локальные настройки и секреты
 .env
 .env.*
+!.env.example
 *.local
+*.local.*
 secrets/
+private/
+backups/
+reports/
 
 # Ключи и сертификаты
 *.key
 *.pem
 *.p12
 *.pfx
+*.ppk
+id_*
+*_ed25519*
+*.vpn
+known_hosts*
+hosts.yml
 
 # Временные файлы
 *.tmp
 *.bak
 *~
+*.log
+*.db
+*.sqlite*
+*.csv
+.zsh_history
+credentials/
+.ssh/
+cookies*
+*.har
+*.session
