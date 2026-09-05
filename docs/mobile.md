@@ -6,7 +6,7 @@
 
 ## DNS, IP и локальная сеть
 
-Обычный DIRECT использует системный DNS мобильной сети (`dns-server = system`). Единственный резервный DNS — Google DoH: `https://dns.google/dns-query#no-h3`. `dns-direct-system` включён, `dns-fallback-system` и `dns-direct-fallback-proxy` выключены. Дополнительный автоматический fallback в system не нужен: Google DoH уже явно задан как резерв. Проксируемые доменные правила используют `force-remote-dns`.
+Системный DNS мобильной сети является основным локальным resolver для DIRECT (`dns-server = system`). Google DoH (`https://dns.google/dns-query#no-h3`) задан как fallback DNS Shadowrocket. `dns-direct-system` включён, `dns-fallback-system` и `dns-direct-fallback-proxy` выключены. Проксируемые доменные правила используют `force-remote-dns`: это требует удалённого разрешения имени для прокси-маршрута, но не означает использование именно Google DoH. Конкретный DNS resolver на стороне прокси этим конфигом не задаётся.
 
 IPv6 намеренно отключён: `ipv6 = false`, `prefer-ipv6 = false`. Ответы DNS с частными IP разрешены (`private-ip-answer = true`). Локальная сеть не блокируется: localhost, домены `.arpa`, `.lan`, `.local`, частные, link-local и multicast адреса IPv4/IPv6 обрабатываются напрямую. DIRECT-правила IPv6 сохраняют это намерение при отключённом IPv6.
 
@@ -45,3 +45,5 @@ Google, Meta, OpenAI, Telegram и весь YouTube всегда идут чер�
 `cdn.openaimerge.com` нужен OpenAI, но отсутствует в используемом [geosite-openai.list](https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-openai.list), поэтому перед списком сохранено отдельное доменное правило с `force-remote-dns`.
 
 [Mobile whitelist](https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-ru-mobile-whitelist.list) применяется после сервисных VPN-правил и перед списками ограниченных ресурсов. Оба источника ограниченных ресурсов сохраняются: [inside-clashx](https://raw.githubusercontent.com/itdoginfo/allow-domains/main/Russia/inside-clashx.lst) и [no-russia-hosts](https://raw.githubusercontent.com/dartraiden/no-russia-hosts/master/hosts.txt). Они описывают разные причины ограничения доступа.
+
+`no-russia-hosts` подключается как `DOMAIN-SET` с политикой `Mobile` и `force-remote-dns`. Источник содержит родительские домены; фактический охват поддоменов нужно подтвердить практическим тестом Shadowrocket.
