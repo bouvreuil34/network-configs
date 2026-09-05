@@ -21,26 +21,26 @@ IPv6 намеренно отключён: `ipv6 = false`, `prefer-ipv6 = false`.
 
 ## Маршрутизация
 
-Правила применяются сверху вниз до первого совпадения. Таблица отражает их порядок.
+Правила применяются сверху вниз до первого совпадения. Таблица задаёт их порядок.
 
 Google, Meta, OpenAI, Telegram и весь YouTube всегда идут через VPN с политикой `Mobile`.
 
 | Трафик | Маршрут |
 | --- | --- |
-| Локальные и служебные домены и адреса | DIRECT |
-| `captive.apple.com`, `push.apple.com` и поддомены push | DIRECT |
-| Остальной Apple: `Apple_Domain.list` и `Apple.list` | Mobile |
-| Google | Mobile |
-| Meta по доменам | Mobile |
-| OpenAI: `cdn.openaimerge.com`, затем `geosite-openai.list` | Mobile |
-| Telegram по доменам | Mobile |
-| YouTube | Mobile |
-| Mobile whitelist: `geosite-ru-mobile-whitelist.list` | DIRECT |
-| `inside-clashx.lst`: ресурсы, проблемные или ограниченные из России | Mobile |
-| `no-russia-hosts`: ресурсы, ограничивающие доступ с российских IP | Mobile |
-| Meta по IP | Mobile |
-| Telegram по IP | Mobile |
-| Всё остальное, включая российские домены/IP без совпадения выше (`FINAL`) | DIRECT |
+| Локальные и служебные домены и адреса | `DIRECT` |
+| `captive.apple.com`, `push.apple.com` и поддомены push | `DIRECT` |
+| Остальной Apple: `Apple_Domain.list` и `Apple.list` | `Mobile` |
+| Google | `Mobile` |
+| Meta по доменам | `Mobile` |
+| OpenAI: `cdn.openaimerge.com`, затем `geosite-openai.list` | `Mobile` |
+| Telegram по доменам | `Mobile` |
+| YouTube | `Mobile` |
+| Mobile whitelist: `geosite-ru-mobile-whitelist.list` | `DIRECT` |
+| `inside-clashx.lst`: ресурсы, проблемные или ограниченные из России | `Mobile` |
+| `no-russia-hosts`: ресурсы, ограничивающие доступ с российских IP | `Mobile` |
+| Meta по IP | `Mobile` |
+| Telegram по IP | `Mobile` |
+| Всё остальное, включая российские домены/IP без совпадения выше (`FINAL`) | `DIRECT` |
 
 `cdn.openaimerge.com` нужен OpenAI, но отсутствует в используемом [geosite-openai.list](https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-openai.list), поэтому перед списком сохранено отдельное доменное правило с `force-remote-dns`.
 
