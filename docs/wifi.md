@@ -16,6 +16,8 @@ LAN должна обходить прокси и быть исключена и
 - Ограниченные ресурсы (`inside-clashx`, `no-russia-hosts`, `geosite-ru-blocked`) → `PROXY`.
 - Всё остальное → `FINAL,DIRECT`.
 
-DNS и IPv6 сохраняются без изменений относительно профиля `wifi-remote.conf`, включая системный DNS для DIRECT и удалённое разрешение для доменных proxy-правил.
+DNS совпадает с `wifi-remote.conf`: DIRECT использует системный DNS текущей сети (`dns-server = system`, `fallback-dns-server = system`). Дома запросы идут через Netcraze к DNS, полученным от провайдера МТС; в другой Wi-Fi-сети — к её DNS, в мобильной сети — к DNS оператора. `dns-direct-system` включён, `dns-fallback-system` и `dns-direct-fallback-proxy` выключены. Публичный DoH намеренно не используется для обычного DIRECT-трафика, в том числе как fallback, из-за возможных проблем с географическим выбором российских CDN.
+
+Доменные VPN-правила с политикой `PROXY` сохраняют `force-remote-dns`; конкретный DNS resolver на стороне прокси конфигом не задаётся. IPv6 совпадает с `wifi-remote.conf`.
 
 Для домашнего Wi-Fi профиль можно выбирать автоматически через Shadowrocket Scene по SSID домашней сети.

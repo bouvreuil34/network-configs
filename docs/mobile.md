@@ -6,7 +6,9 @@
 
 ## DNS, IP и локальная сеть
 
-Системный DNS мобильной сети является основным локальным resolver для DIRECT (`dns-server = system`). Google DoH (`https://dns.google/dns-query#no-h3`) задан как fallback DNS Shadowrocket. `dns-direct-system` включён, `dns-fallback-system` и `dns-direct-fallback-proxy` выключены. Проксируемые доменные правила используют `force-remote-dns`: это требует удалённого разрешения имени для прокси-маршрута, но не означает использование именно Google DoH. Конкретный DNS resolver на стороне прокси этим конфигом не задаётся.
+DIRECT использует системный DNS текущей сети: в мобильной сети — DNS оператора, дома по Wi-Fi — через Netcraze к DNS, полученным от провайдера МТС. `dns-server = system` и `fallback-dns-server = system`; `dns-direct-system` включён, `dns-fallback-system` и `dns-direct-fallback-proxy` выключены. Публичный DoH намеренно не используется для обычного DIRECT-трафика, в том числе как fallback, из-за возможных проблем с географическим выбором российских CDN.
+
+Доменные VPN-правила с политикой `Mobile` сохраняют `force-remote-dns` для удалённого разрешения имени. Конкретный DNS resolver на стороне прокси этим конфигом не задаётся.
 
 IPv6 намеренно отключён: `ipv6 = false`, `prefer-ipv6 = false`. Ответы DNS с частными IP разрешены (`private-ip-answer = true`). Локальная сеть не блокируется: localhost, домены `.arpa`, `.lan`, `.local`, частные, link-local и multicast адреса IPv4/IPv6 обрабатываются напрямую. DIRECT-правила IPv6 сохраняют это намерение при отключённом IPv6.
 

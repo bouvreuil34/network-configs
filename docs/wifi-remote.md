@@ -41,9 +41,9 @@ Wi-Fi работает по модели **DIRECT по умолчанию**. Ч�
 
 ## DNS и IPv6
 
-Cloudflare DoH (`https://cloudflare-dns.com/dns-query#no-h3`) и Google DoH (`https://dns.google/dns-query#no-h3`) настроены как DNS-серверы Shadowrocket. Для DIRECT разрешён системный DNS текущей Wi-Fi-сети (`dns-direct-system = true`). Доменные proxy-правила, в том числе `no-russia-hosts`, используют `force-remote-dns`, требующий удалённого разрешения назначения. Конкретный resolver, использованный прокси-сервером для такого имени, этим конфигом не определяется; это не обязательно Cloudflare или Google DoH.
+DIRECT использует системный DNS текущей сети (`dns-server = system`, `fallback-dns-server = system`): на внешнем Wi-Fi — DNS этой сети, дома — через Netcraze к DNS, полученным от провайдера МТС, в мобильной сети — DNS оператора. `dns-direct-system` включён, `dns-fallback-system` и `dns-direct-fallback-proxy` выключены. Публичный DoH намеренно не используется для обычного DIRECT-трафика, в том числе как fallback, из-за возможных проблем с географическим выбором российских CDN.
 
-Если основные DNS недоступны, резерв — системный DNS (`fallback-dns-server = system`). Дополнительный механизм `dns-fallback-system` выключен: system уже явно указан как резерв. `dns-direct-fallback-proxy = false`; ControlD и AdGuard в DNS-конфигурации не используются.
+Доменные VPN-правила с политикой `PROXY`, в том числе `no-russia-hosts`, сохраняют `force-remote-dns` для удалённого разрешения имени. Конкретный DNS resolver на стороне прокси этим конфигом не задаётся.
 
 IPv6 включён (`ipv6 = true`), предпочтение IPv6 выключено (`prefer-ipv6 = false`), ответы с частными IP разрешены (`private-ip-answer = true`).
 
