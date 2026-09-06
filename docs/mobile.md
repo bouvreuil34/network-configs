@@ -6,7 +6,7 @@
 
 ## DNS, IP и локальная сеть
 
-DIRECT использует системный DNS текущей сети: в мобильной сети — DNS оператора, дома по Wi-Fi — через Netcraze к DNS, полученным от провайдера МТС. `dns-server = system` и `fallback-dns-server = system`; `dns-direct-system` включён, `dns-fallback-system` и `dns-direct-fallback-proxy` выключены. Публичный DoH намеренно не используется для обычного DIRECT-трафика, в том числе как fallback, из-за возможных проблем с географическим выбором российских CDN.
+DIRECT использует системный DNS текущей сети: в мобильной сети — DNS оператора, дома по Wi-Fi — через Netcraze к DNS, полученным от провайдера МТС. `dns-server = system`; `dns-direct-system` включён, `dns-fallback-system` и `dns-direct-fallback-proxy` выключены. Отдельный fallback DNS в Shadowrocket не используется. Публичный DoH намеренно не используется для обычного DIRECT-трафика из-за возможных проблем с географическим выбором российских CDN.
 
 Доменные VPN-правила с политикой `Mobile` сохраняют `force-remote-dns` для удалённого разрешения имени. Конкретный DNS resolver на стороне прокси этим конфигом не задаётся.
 

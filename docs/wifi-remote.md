@@ -41,7 +41,7 @@ Wi-Fi работает по модели **DIRECT по умолчанию**. Ч�
 
 ## DNS и IPv6
 
-DIRECT использует системный DNS текущей сети (`dns-server = system`, `fallback-dns-server = system`): на внешнем Wi-Fi — DNS этой сети, дома — через Netcraze к DNS, полученным от провайдера МТС, в мобильной сети — DNS оператора. `dns-direct-system` включён, `dns-fallback-system` и `dns-direct-fallback-proxy` выключены. Публичный DoH намеренно не используется для обычного DIRECT-трафика, в том числе как fallback, из-за возможных проблем с географическим выбором российских CDN.
+DIRECT использует системный DNS текущей сети (`dns-server = system`): на внешнем Wi-Fi — DNS этой сети, дома — через Netcraze к DNS, полученным от провайдера МТС, в мобильной сети — DNS оператора. `dns-direct-system` включён, `dns-fallback-system` и `dns-direct-fallback-proxy` выключены. Отдельный fallback DNS в Shadowrocket не используется. Публичный DoH намеренно не используется для обычного DIRECT-трафика из-за возможных проблем с географическим выбором российских CDN.
 
 Доменные VPN-правила с политикой `PROXY`, в том числе `no-russia-hosts`, сохраняют `force-remote-dns` для удалённого разрешения имени. Конкретный DNS resolver на стороне прокси этим конфигом не задаётся.
 
