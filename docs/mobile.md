@@ -18,8 +18,10 @@ IPv6 намеренно отключён: `ipv6 = false`, `prefer-ipv6 = false`.
 
 Все VPN-правила обращаются к группе `Mobile`: ручной выбор между `Mobile-Foreign` (по умолчанию, `select=0`) и `Mobile-Manual`. Обе вложенные группы используют подписку с точным именем **Платный VPN**.
 
-- **Mobile-Foreign** — автоматический зарубежный LTE через `fallback`. Название сервера должно содержать `LTE` и не содержать ни одного из вариантов: `Авто`, `Москва`, `МСК`, `Санкт-Петербург`, `СПБ`, `Екатеринбург`, `Хабаровск`, `Россия`, `РФ`. Наличие ⭐ не ограничивается. Проверка доступности: `https://cp.cloudflare.com/generate_204`, интервал 120 секунд, тайм-аут 4 секунды. Важна доступность, а не минимальная задержка.
-- **Mobile-Manual** — ручной запасной выбор через `select`. Доступны все серверы с `LTE` в названии, включая российские, зарубежные, `Авто` и ⭐. Других фильтров и периодических проверок доступности нет. Российский сервер может использоваться только при таком ручном выборе для явных VPN-правил.
+- **Mobile-Foreign** — автоматический выбор LTE через `fallback` с исключениями по имени. Название сервера должно содержать `LTE` и не содержать ни одного из вариантов: `Авто`, `Москва`, `МСК`, `Санкт-Петербург`, `СПБ`, `Екатеринбург`, `Хабаровск`, `Россия`, `РФ`, `LTE №61`. Наличие ⭐ не ограничивается. Проверка доступности: `https://cp.cloudflare.com/generate_204`, интервал 120 секунд, тайм-аут 4 секунды. Важна доступность, а не минимальная задержка.
+- **Mobile-Manual** — ручной запасной выбор через `select`. Доступны все серверы с `LTE` в названии, включая российские, зарубежные, `Авто` и ⭐. Других фильтров и периодических проверок доступности нет. Здесь можно намеренно выбрать российский сервер для явных VPN-правил.
+
+Фильтр проверяет только имя, а не страну выходного IP. `LTE №61` исключён как ранее выявленный российский узел, пропускавшийся общим фильтром; при смене названий или адресов подписки классификацию нужно перепроверять.
 
 ## Маршрутизация
 
@@ -46,6 +48,6 @@ Google, Meta, OpenAI, Telegram и весь YouTube всегда идут чер�
 
 `cdn.openaimerge.com` нужен OpenAI, но отсутствует в используемом [geosite-openai.list](https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-openai.list), поэтому перед списком сохранено отдельное доменное правило с `force-remote-dns`.
 
-[Mobile whitelist](https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-ru-mobile-whitelist.list) применяется после сервисных VPN-правил и перед списками ограниченных ресурсов. Оба источника ограниченных ресурсов сохраняются: [inside-clashx](https://raw.githubusercontent.com/itdoginfo/allow-domains/main/Russia/inside-clashx.lst) и [no-russia-hosts](https://raw.githubusercontent.com/dartraiden/no-russia-hosts/master/hosts.txt). Они описывают разные причины ограничения доступа.
+[Mobile whitelist](https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-ru-mobile-whitelist.list) применяется после сервисных VPN-правил и перед списками ограниченных ресурсов. Оба источника ограниченных ресурсов сохраняются: [inside-clashx](https://raw.githubusercontent.com/itdoginfo/allow-domains/main/Russia/inside-clashx.lst) и [no-russia-hosts](../shadowrocket/no-russia.list). Они описывают разные причины ограничения доступа.
 
-`no-russia-hosts` подключается как `DOMAIN-SET` с политикой `Mobile` и `force-remote-dns`. Источник содержит родительские домены; фактический охват поддоменов нужно подтвердить практическим тестом Shadowrocket.
+`no-russia-hosts` подключается как `RULE-SET` из записей `DOMAIN-SUFFIX` с политикой `Mobile` и `force-remote-dns`, охватывая родительский домен и поддомены. [Обновление профиля и списка](../README.md#обновление-shadowrocket-и-списков).

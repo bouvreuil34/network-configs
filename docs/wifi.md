@@ -21,3 +21,5 @@ DNS совпадает с `wifi-remote.conf`: DIRECT использует сис
 Доменные VPN-правила с политикой `PROXY` сохраняют `force-remote-dns`; конкретный DNS resolver на стороне прокси конфигом не задаётся. IPv6 совпадает с `wifi-remote.conf`.
 
 Для домашнего Wi-Fi профиль можно выбирать автоматически через Shadowrocket Scene по SSID домашней сети.
+
+`no-russia-hosts` использует `RULE-SET` с `DOMAIN-SUFFIX` для доменов и поддоменов. [Обновление профиля и списка](../README.md#обновление-shadowrocket-и-списков).

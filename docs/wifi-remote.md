@@ -36,7 +36,7 @@ Wi-Fi работает по модели **DIRECT по умолчанию**. Ч�
 Все три источника проблемных ресурсов сохраняются:
 
 - inside-clashx: `https://raw.githubusercontent.com/itdoginfo/allow-domains/main/Russia/inside-clashx.lst`.
-- no-russia-hosts: `https://raw.githubusercontent.com/dartraiden/no-russia-hosts/master/hosts.txt`.
+- no-russia-hosts: `https://raw.githubusercontent.com/bouvreuil34/network-configs/main/shadowrocket/no-russia.list` (`RULE-SET` с `DOMAIN-SUFFIX` для доменов и поддоменов).
 - geosite-ru-blocked: `https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-ru-blocked.list`.
 
 ## DNS и IPv6
@@ -48,3 +48,5 @@ DIRECT использует системный DNS текущей сети (`dns
 IPv6 включён (`ipv6 = true`), предпочтение IPv6 выключено (`prefer-ipv6 = false`), ответы с частными IP разрешены (`private-ip-answer = true`).
 
 Сохраняются `bypass-system = true`, `block-quic = all-proxy` и `udp-policy-not-supported-behaviour = REJECT`. Адрес обновления профиля: `https://raw.githubusercontent.com/bouvreuil34/network-configs/main/shadowrocket/wifi-remote.conf`.
+
+[Обновление профиля и списка no-russia](../README.md#обновление-shadowrocket-и-списков).
