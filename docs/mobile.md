@@ -10,6 +10,8 @@ DIRECT использует системный DNS текущей сети: в �
 
 Доменные VPN-правила с политикой `Mobile` сохраняют `force-remote-dns` для удалённого разрешения имени. Конкретный DNS resolver на стороне прокси этим конфигом не задаётся.
 
+Имена самих VPN-серверов, включая узлы из подписки, разрешаются отдельно через Яндекс DNS: `proxy-dns-server = 77.88.8.8, 77.88.8.1` ([назначение параметра](https://t.me/ShadowrocketNews/932)). Это DNS для установления соединения с узлом; DNS обычного трафика не меняется. В режиме белых списков изменение может помочь при сбое DNS оператора, если доступны эти DNS и IP VPN-сервера; блокировку самого соединения оно не устраняет.
+
 IPv6 намеренно отключён: `ipv6 = false`, `prefer-ipv6 = false`. Ответы DNS с частными IP разрешены (`private-ip-answer = true`). Локальная сеть не блокируется: localhost, домены `.arpa`, `.lan`, `.local`, частные, link-local и multicast адреса IPv4/IPv6 обрабатываются напрямую. DIRECT-правила IPv6 сохраняют это намерение при отключённом IPv6.
 
 Сохраняются `bypass-system = true`, `block-quic = all-proxy` и `udp-policy-not-supported-behaviour = REJECT`. Адрес обновления профиля: `https://raw.githubusercontent.com/bouvreuil34/network-configs/main/shadowrocket/mobile.conf`.
