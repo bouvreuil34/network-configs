@@ -12,7 +12,7 @@ LAN должна обходить прокси и быть исключена и
 
 - Apple → `DIRECT`.
 - Google / Meta / OpenAI / Telegram / YouTube → `PROXY`.
-- FastMCP (`gofastmcp.com` и поддомены) → `PROXY`.
+- Prefect / FastMCP / Horizon (`gofastmcp.com`, `prefect.io`, `prefect.cloud`, `fastmcp.app`, `workos.com` и их поддомены) → `PROXY`.
 - IP-списки Meta и Telegram → `PROXY`.
 - Ограниченные ресурсы (`inside-clashx`, `no-russia-hosts`, `geosite-ru-blocked`) → `PROXY`.
 - Всё остальное → `FINAL,DIRECT`.

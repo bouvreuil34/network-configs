@@ -45,7 +45,7 @@ Google, Meta, OpenAI, Telegram и весь YouTube всегда идут чер�
 | OpenAI: `cdn.openaimerge.com`, затем `geosite-openai.list` | `Mobile` |
 | Telegram по доменам | `Mobile` |
 | YouTube | `Mobile` |
-| FastMCP: `gofastmcp.com` и поддомены | `Mobile` |
+| Prefect / FastMCP / Horizon: `gofastmcp.com`, `prefect.io`, `prefect.cloud`, `fastmcp.app`, `workos.com` и их поддомены | `Mobile` |
 | Mobile whitelist: `geosite-ru-mobile-whitelist.list` | `DIRECT` |
 | `inside-clashx.lst`: ресурсы, проблемные или ограниченные из России | `Mobile` |
 | `no-russia-hosts`: ресурсы, ограничивающие доступ с российских IP | `Mobile` |
