@@ -22,6 +22,7 @@ Wi-Fi работает по модели **DIRECT по умолчанию**. Ч�
 | OpenAI: `cdn.openaimerge.com`, затем `geosite-openai.list` от Master-Yoba | `PROXY` |
 | Telegram по доменам: Master-Yoba `geosite-telegram.list` | `PROXY` |
 | YouTube: Blackmatrix `YouTube.list` | `PROXY` |
+| FastMCP: `gofastmcp.com` и поддомены | `PROXY` |
 | Meta по IP: Master-Yoba `geoip-facebook.list`, `no-resolve` | `PROXY` |
 | Telegram по IP: Master-Yoba `geoip-telegram.list`, `no-resolve` | `PROXY` |
 | `inside-clashx`: ресурсы, проблемные или ограниченные из России | `PROXY` |
