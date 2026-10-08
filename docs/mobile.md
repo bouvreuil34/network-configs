@@ -8,7 +8,7 @@
 
 DIRECT использует системный DNS текущей сети: в мобильной сети — DNS оператора, дома по Wi-Fi — через Netcraze к DNS, полученным от провайдера МТС. `dns-server = system`; `dns-direct-system` включён, `dns-fallback-system` и `dns-direct-fallback-proxy` выключены. Отдельный fallback DNS в Shadowrocket не используется. Публичный DoH намеренно не используется для обычного DIRECT-трафика из-за возможных проблем с географическим выбором российских CDN.
 
-У доменных VPN-правил с политиками `Mobile` и `Mobile-RU` указан `force-remote-dns`, кроме правила AWS `amazonaws.com → Mobile`. У AWS флаг не задан; это само по себе не означает локальное разрешение имени. Конкретный DNS resolver на стороне прокси этим конфигом не задаётся.
+Для доменных VPN-правил с политиками `Mobile` и `Mobile-RU` используется стандартное поведение DNS в Shadowrocket. Конкретный DNS resolver на стороне прокси этим конфигом не задаётся.
 
 Имена VPN-узлов, включая узлы из подписки, разрешаются отдельно через Cloudflare и Google DoH с `#no-h3` в `proxy-dns-server`. DNS обычного DIRECT-трафика остаётся системным. Если при режиме белых списков VPN перестанет подключаться, первым аварийным вариантом заменить настройку на проверенный Яндекс DNS:
 
@@ -50,7 +50,7 @@ Google, Meta, OpenAI, Telegram и весь YouTube всегда идут чер�
 | Prefect / FastMCP / Horizon: `fastmcp.app`, `gofastmcp.com`, `prefect.cloud`, `prefect.io`, `workos.com` и их поддомены | `Mobile` |
 | Telegram по доменам | `Mobile` |
 | YouTube | `Mobile` |
-| Горпарковки: `volgaparking.ru` и поддомены | `Mobile-RU`, `force-remote-dns` |
+| Горпарковки: `volgaparking.ru` и поддомены | `Mobile-RU` |
 | Mobile whitelist: `geosite-ru-mobile-whitelist.list` | `DIRECT` |
 | `inside-clashx.lst`: ресурсы, проблемные или ограниченные из России | `Mobile` |
 | `no-russia-hosts`: ресурсы, ограничивающие доступ с российских IP | `Mobile` |
@@ -58,10 +58,10 @@ Google, Meta, OpenAI, Telegram и весь YouTube всегда идут чер�
 | Telegram по IP | `Mobile` |
 | Всё остальное, включая российские домены/IP без совпадения выше (`FINAL`) | `DIRECT` |
 
-`cdn.openaimerge.com` нужен OpenAI, но отсутствует в используемом [geosite-openai.list](https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-openai.list), поэтому перед списком сохранено отдельное доменное правило с `force-remote-dns`.
+`cdn.openaimerge.com` нужен OpenAI, но отсутствует в используемом [geosite-openai.list](https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-openai.list), поэтому перед списком сохранено отдельное доменное правило.
 
-Горпарковки (`volgaparking.ru` и поддомены) — точечное исключение: `DIRECT` не подходит в режиме белых списков оператора, поэтому сервис использует российский LTE-VPN через `Mobile-RU` с `force-remote-dns`. Правило стоит перед Mobile whitelist и действует независимо от выбора в `Mobile`. Общей маршрутизации российских доменов через `Mobile-RU` нет.
+Горпарковки (`volgaparking.ru` и поддомены) — точечное исключение: `DIRECT` не подходит в режиме белых списков оператора, поэтому сервис использует российский LTE-VPN через `Mobile-RU`. Правило стоит перед Mobile whitelist и действует независимо от выбора в `Mobile`. Общей маршрутизации российских доменов через `Mobile-RU` нет.
 
 [Mobile whitelist](https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-ru-mobile-whitelist.list) применяется после сервисных VPN-правил и перед списками ограниченных ресурсов. Оба источника ограниченных ресурсов сохраняются: [inside-clashx](https://raw.githubusercontent.com/itdoginfo/allow-domains/main/Russia/inside-clashx.lst) и [no-russia-hosts](../shadowrocket/no-russia.list). Они описывают разные причины ограничения доступа.
 
-`no-russia-hosts` подключается как `RULE-SET` из записей `DOMAIN-SUFFIX` с политикой `Mobile` и `force-remote-dns`, охватывая родительский домен и поддомены. [Обновление профиля и списка](../README.md#обновление-shadowrocket-и-списков).
+`no-russia-hosts` подключается как `RULE-SET` из записей `DOMAIN-SUFFIX` с политикой `Mobile`, охватывая родительский домен и поддомены. [Обновление профиля и списка](../README.md#обновление-shadowrocket-и-списков).
