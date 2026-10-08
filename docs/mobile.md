@@ -34,16 +34,16 @@ VPN-правила, кроме исключения Горпарковок, об
 
 Правила применяются сверху вниз до первого совпадения. Таблица задаёт их порядок.
 
-Сортировка применяется к независимым сервисным блокам и доменам внутри них; приоритет исключений и порядок правил с разными политиками сохраняются.
+Приоритет исключений и положение IP-правил с `no-resolve` сохраняются. Независимые сервисные блоки и домены внутри них отсортированы по алфавиту; `FINAL` остаётся последним.
 
 Google, Meta, OpenAI, Telegram и весь YouTube всегда идут через VPN с политикой `Mobile`.
 
 | Трафик | Маршрут |
 | --- | --- |
 | Локальные и служебные домены и адреса | `DIRECT` |
-| AWS: `amazonaws.com` и поддомены | `Mobile` |
 | `captive.apple.com`, `push.apple.com` и поддомены push | `DIRECT` |
 | Остальной Apple: `Apple_Domain.list` и `Apple.list` | `Mobile` |
+| AWS: `amazonaws.com` и поддомены | `Mobile` |
 | Google | `Mobile` |
 | Meta по доменам | `Mobile` |
 | OpenAI: `cdn.openaimerge.com`, затем `geosite-openai.list` | `Mobile` |
@@ -51,7 +51,7 @@ Google, Meta, OpenAI, Telegram и весь YouTube всегда идут чер�
 | Telegram по доменам | `Mobile` |
 | YouTube | `Mobile` |
 | Горпарковки: `volgaparking.ru` и поддомены | `Mobile-RU` |
-| Mobile whitelist: `geosite-ru-mobile-whitelist.list` | `DIRECT` |
+| Mobile allowlist: `geosite-ru-mobile-whitelist.list` | `DIRECT` |
 | `inside-clashx.lst`: ресурсы, проблемные или ограниченные из России | `Mobile` |
 | `no-russia-hosts`: ресурсы, ограничивающие доступ с российских IP | `Mobile` |
 | Meta по IP | `Mobile` |
@@ -60,8 +60,8 @@ Google, Meta, OpenAI, Telegram и весь YouTube всегда идут чер�
 
 `cdn.openaimerge.com` нужен OpenAI, но отсутствует в используемом [geosite-openai.list](https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-openai.list), поэтому перед списком сохранено отдельное доменное правило.
 
-Горпарковки (`volgaparking.ru` и поддомены) — точечное исключение: `DIRECT` не подходит в режиме белых списков оператора, поэтому сервис использует российский LTE-VPN через `Mobile-RU`. Правило стоит перед Mobile whitelist и действует независимо от выбора в `Mobile`. Общей маршрутизации российских доменов через `Mobile-RU` нет.
+Горпарковки (`volgaparking.ru` и поддомены) — точечное исключение: `DIRECT` не подходит в режиме белых списков оператора, поэтому сервис использует российский LTE-VPN через `Mobile-RU`. Правило стоит перед Mobile allowlist и действует независимо от выбора в `Mobile`. Общей маршрутизации российских доменов через `Mobile-RU` нет.
 
-[Mobile whitelist](https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-ru-mobile-whitelist.list) применяется после сервисных VPN-правил и перед списками ограниченных ресурсов. Оба источника ограниченных ресурсов сохраняются: [inside-clashx](https://raw.githubusercontent.com/itdoginfo/allow-domains/main/Russia/inside-clashx.lst) и [no-russia-hosts](../shadowrocket/no-russia.list). Они описывают разные причины ограничения доступа.
+[Mobile allowlist](https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-ru-mobile-whitelist.list) применяется после сервисных VPN-правил и перед списками ограниченных ресурсов. Оба источника ограниченных ресурсов сохраняются: [inside-clashx](https://raw.githubusercontent.com/itdoginfo/allow-domains/main/Russia/inside-clashx.lst) и [no-russia-hosts](../shadowrocket/no-russia.list). Они описывают разные причины ограничения доступа.
 
 `no-russia-hosts` подключается как `RULE-SET` из записей `DOMAIN-SUFFIX` с политикой `Mobile`, охватывая родительский домен и поддомены. [Обновление профиля и списка](../README.md#обновление-shadowrocket-и-списков).

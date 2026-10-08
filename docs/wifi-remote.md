@@ -10,10 +10,12 @@ Wi-Fi работает по модели **DIRECT по умолчанию**. Ч�
 
 Правила применяются сверху вниз до первого совпадения. Таблица задаёт их порядок.
 
+Приоритет исключений и положение IP-правил с `no-resolve` сохраняются. Независимые сервисные блоки и домены внутри них отсортированы по алфавиту; `FINAL` остаётся последним.
+
 | Трафик | Маршрут |
 | --- | --- |
 | Домашняя подсеть `192.168.168.0/24` | `Домашний роутер` |
-| `localhost`, домены `.arpa`, `.lan`, `.local` | `DIRECT` |
+| Домены `.arpa`, `.lan`, `.local`, затем `localhost` | `DIRECT` |
 | Остальная LAN и служебные IPv4: private, link-local, multicast, loopback, CGNAT и широковещательный адрес | `DIRECT` |
 | Локальные и служебные IPv6: private, link-local, multicast и loopback | `DIRECT` |
 | AWS: `amazonaws.com` и поддомены | `PROXY` |
@@ -22,14 +24,14 @@ Wi-Fi работает по модели **DIRECT по умолчанию**. Ч�
 | Google по доменам: Master-Yoba `geosite-google.list` | `PROXY` |
 | Meta / Facebook / Instagram / WhatsApp по доменам: Master-Yoba `geosite-meta.list` | `PROXY` |
 | OpenAI: `cdn.openaimerge.com`, затем `geosite-openai.list` от Master-Yoba | `PROXY` |
+| Prefect / FastMCP / Horizon: `fastmcp.app`, `gofastmcp.com`, `prefect.cloud`, `prefect.io`, `workos.com` и их поддомены | `PROXY` |
 | Telegram по доменам: Master-Yoba `geosite-telegram.list` | `PROXY` |
 | YouTube: Blackmatrix `YouTube.list` | `PROXY` |
-| Prefect / FastMCP / Horizon: `gofastmcp.com`, `prefect.io`, `prefect.cloud`, `fastmcp.app`, `workos.com` и их поддомены | `PROXY` |
 | Meta по IP: Master-Yoba `geoip-facebook.list`, `no-resolve` | `PROXY` |
 | Telegram по IP: Master-Yoba `geoip-telegram.list`, `no-resolve` | `PROXY` |
 | `geosite-ru-blocked` | `PROXY` |
-| `no-russia-hosts`: ресурсы, ограничивающие доступ с российских IP | `PROXY` |
 | `inside-clashx`: ресурсы, проблемные или ограниченные из России | `PROXY` |
+| `no-russia-hosts`: ресурсы, ограничивающие доступ с российских IP | `PROXY` |
 | Всё остальное, включая российские домены/IP без совпадения выше (`FINAL`) | `DIRECT` |
 
 Правило `192.168.168.0/24` с точной политикой `Домашний роутер` и `no-resolve` должно стоять раньше общего `192.168.0.0/16 → DIRECT`. Обе подсети остаются внутри TUN: их нельзя добавлять в `skip-proxy` или `tun-excluded-routes`. Существующая логика остальных исключений сохраняется. LAN не блокируется через REJECT.
@@ -38,9 +40,9 @@ Wi-Fi работает по модели **DIRECT по умолчанию**. Ч�
 
 Все три источника проблемных ресурсов сохраняются:
 
+- geosite-ru-blocked: `https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-ru-blocked.list`.
 - inside-clashx: `https://raw.githubusercontent.com/itdoginfo/allow-domains/main/Russia/inside-clashx.lst`.
 - no-russia-hosts: `https://raw.githubusercontent.com/bouvreuil34/network-configs/main/shadowrocket/no-russia.list` (`RULE-SET` с `DOMAIN-SUFFIX` для доменов и поддоменов).
-- geosite-ru-blocked: `https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-ru-blocked.list`.
 
 ## DNS и IPv6
 

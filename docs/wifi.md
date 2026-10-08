@@ -10,13 +10,16 @@ LAN должна обходить прокси и быть исключена и
 
 ## Интернет-маршрутизация
 
+Приоритет исключений и положение IP-правил с `no-resolve` сохраняются. Независимые сервисные блоки и домены внутри них отсортированы по алфавиту; `FINAL` остаётся последним.
+
 - AWS: `amazonaws.com` и поддомены → `PROXY`.
 - Исключения iCloud и связанных сервисов Apple: `apple-cloudkit.com`, `apple-dns.net`, `apple-livephotoskit.com`, `cdn-apple.com`, `gc.apple.com`, `icloud-content.com`, `icloud.com`, `iwork.apple.com` и их поддомены → `PROXY`; эти правила стоят перед общими списками Apple.
 - Остальной Apple по `Apple_Domain.list` и `Apple.list`, а также `captive.apple.com` и `push.apple.com` с поддоменами push → `DIRECT`.
-- Google / Meta / OpenAI / Telegram / YouTube → `PROXY`.
-- Prefect / FastMCP / Horizon (`gofastmcp.com`, `prefect.io`, `prefect.cloud`, `fastmcp.app`, `workos.com` и их поддомены) → `PROXY`.
+- Google / Meta / OpenAI → `PROXY`.
+- Prefect / FastMCP / Horizon (`fastmcp.app`, `gofastmcp.com`, `prefect.cloud`, `prefect.io`, `workos.com` и их поддомены) → `PROXY`.
+- Telegram / YouTube → `PROXY`.
 - IP-списки Meta и Telegram → `PROXY`.
-- Ограниченные ресурсы (`inside-clashx`, `no-russia-hosts`, `geosite-ru-blocked`) → `PROXY`.
+- Ограниченные ресурсы (`geosite-ru-blocked`, `inside-clashx`, `no-russia-hosts`) → `PROXY`.
 - Всё остальное → `FINAL,DIRECT`.
 
 DNS совпадает с `wifi-remote.conf`: DIRECT использует системный DNS текущей сети (`dns-server = system`). Дома запросы идут через Netcraze к DNS, полученным от провайдера МТС; в другой Wi-Fi-сети — к её DNS, в мобильной сети — к DNS оператора. `dns-direct-system` включён, `dns-fallback-system` и `dns-direct-fallback-proxy` выключены. Отдельный fallback DNS в Shadowrocket не используется. Публичный DoH намеренно не используется для обычного DIRECT-трафика из-за возможных проблем с географическим выбором российских CDN.
