@@ -10,7 +10,9 @@ LAN должна обходить прокси и быть исключена и
 
 ## Интернет-маршрутизация
 
-- Apple → `DIRECT`.
+- AWS: `amazonaws.com` и поддомены → `PROXY`.
+- Исключения iCloud и связанных сервисов Apple: `apple-cloudkit.com`, `apple-dns.net`, `apple-livephotoskit.com`, `cdn-apple.com`, `gc.apple.com`, `icloud-content.com`, `icloud.com`, `iwork.apple.com` и их поддомены → `PROXY`; эти правила стоят перед общими списками Apple.
+- Остальной Apple по `Apple_Domain.list` и `Apple.list`, а также `captive.apple.com` и `push.apple.com` с поддоменами push → `DIRECT`.
 - Google / Meta / OpenAI / Telegram / YouTube → `PROXY`.
 - Prefect / FastMCP / Horizon (`gofastmcp.com`, `prefect.io`, `prefect.cloud`, `fastmcp.app`, `workos.com` и их поддомены) → `PROXY`.
 - IP-списки Meta и Telegram → `PROXY`.
@@ -19,7 +21,7 @@ LAN должна обходить прокси и быть исключена и
 
 DNS совпадает с `wifi-remote.conf`: DIRECT использует системный DNS текущей сети (`dns-server = system`). Дома запросы идут через Netcraze к DNS, полученным от провайдера МТС; в другой Wi-Fi-сети — к её DNS, в мобильной сети — к DNS оператора. `dns-direct-system` включён, `dns-fallback-system` и `dns-direct-fallback-proxy` выключены. Отдельный fallback DNS в Shadowrocket не используется. Публичный DoH намеренно не используется для обычного DIRECT-трафика из-за возможных проблем с географическим выбором российских CDN.
 
-Доменные VPN-правила с политикой `PROXY` сохраняют `force-remote-dns`; конкретный DNS resolver на стороне прокси конфигом не задаётся. IPv6 совпадает с `wifi-remote.conf`.
+У доменных VPN-правил с политикой `PROXY`, кроме исключений AWS и iCloud, указан `force-remote-dns`. У `amazonaws.com` и восьми перечисленных выше суффиксов Apple этот флаг не задан. Это описание текущей конфигурации, а не утверждение, что их DNS-запросы обязательно выполняются локально. Конкретный DNS resolver на стороне прокси конфигом не задаётся. IPv6 совпадает с `wifi-remote.conf`.
 
 Для домашнего Wi-Fi профиль можно выбирать автоматически через Shadowrocket Scene по SSID домашней сети.
 

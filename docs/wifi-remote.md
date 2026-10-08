@@ -16,7 +16,9 @@ Wi-Fi работает по модели **DIRECT по умолчанию**. Ч�
 | `localhost`, домены `.arpa`, `.lan`, `.local` | `DIRECT` |
 | Остальная LAN и служебные IPv4: private, link-local, multicast, loopback, CGNAT и широковещательный адрес | `DIRECT` |
 | Локальные и служебные IPv6: private, link-local, multicast и loopback | `DIRECT` |
-| Весь Apple, включая `captive.apple.com`, `push.apple.com` и поддомены push; Blackmatrix `Apple_Domain.list` и `Apple.list` | `DIRECT` |
+| AWS: `amazonaws.com` и поддомены | `PROXY` |
+| Исключения iCloud и связанных сервисов Apple: `apple-cloudkit.com`, `apple-dns.net`, `apple-livephotoskit.com`, `cdn-apple.com`, `gc.apple.com`, `icloud-content.com`, `icloud.com`, `iwork.apple.com` и их поддомены | `PROXY` |
+| `captive.apple.com`, `push.apple.com` и поддомены push; остальной Apple по Blackmatrix `Apple_Domain.list` и `Apple.list` | `DIRECT` |
 | Google по доменам: Master-Yoba `geosite-google.list` | `PROXY` |
 | Meta / Facebook / Instagram / WhatsApp по доменам: Master-Yoba `geosite-meta.list` | `PROXY` |
 | OpenAI: `cdn.openaimerge.com`, затем `geosite-openai.list` от Master-Yoba | `PROXY` |
@@ -25,9 +27,9 @@ Wi-Fi работает по модели **DIRECT по умолчанию**. Ч�
 | Prefect / FastMCP / Horizon: `gofastmcp.com`, `prefect.io`, `prefect.cloud`, `fastmcp.app`, `workos.com` и их поддомены | `PROXY` |
 | Meta по IP: Master-Yoba `geoip-facebook.list`, `no-resolve` | `PROXY` |
 | Telegram по IP: Master-Yoba `geoip-telegram.list`, `no-resolve` | `PROXY` |
-| `inside-clashx`: ресурсы, проблемные или ограниченные из России | `PROXY` |
-| `no-russia-hosts`: ресурсы, ограничивающие доступ с российских IP | `PROXY` |
 | `geosite-ru-blocked` | `PROXY` |
+| `no-russia-hosts`: ресурсы, ограничивающие доступ с российских IP | `PROXY` |
+| `inside-clashx`: ресурсы, проблемные или ограниченные из России | `PROXY` |
 | Всё остальное, включая российские домены/IP без совпадения выше (`FINAL`) | `DIRECT` |
 
 Правило `192.168.168.0/24` с точной политикой `Домашний роутер` и `no-resolve` должно стоять раньше общего `192.168.0.0/16 → DIRECT`. Обе подсети остаются внутри TUN: их нельзя добавлять в `skip-proxy` или `tun-excluded-routes`. Существующая логика остальных исключений сохраняется. LAN не блокируется через REJECT.
@@ -44,7 +46,7 @@ Wi-Fi работает по модели **DIRECT по умолчанию**. Ч�
 
 DIRECT использует системный DNS текущей сети (`dns-server = system`): на внешнем Wi-Fi — DNS этой сети, дома — через Netcraze к DNS, полученным от провайдера МТС, в мобильной сети — DNS оператора. `dns-direct-system` включён, `dns-fallback-system` и `dns-direct-fallback-proxy` выключены. Отдельный fallback DNS в Shadowrocket не используется. Публичный DoH намеренно не используется для обычного DIRECT-трафика из-за возможных проблем с географическим выбором российских CDN.
 
-Доменные VPN-правила с политикой `PROXY`, в том числе `no-russia-hosts`, сохраняют `force-remote-dns` для удалённого разрешения имени. Конкретный DNS resolver на стороне прокси этим конфигом не задаётся.
+У доменных VPN-правил с политикой `PROXY`, в том числе `no-russia-hosts`, указан `force-remote-dns`, за исключением AWS и восьми суффиксов iCloud и связанных сервисов Apple из таблицы. У этих исключений флаг не задан; это само по себе не означает локальное разрешение имени. Конкретный DNS resolver на стороне прокси этим конфигом не задаётся.
 
 IPv6 включён (`ipv6 = true`), предпочтение IPv6 выключено (`prefer-ipv6 = false`), ответы с частными IP разрешены (`private-ip-answer = true`).
 
