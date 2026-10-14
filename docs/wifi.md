@@ -14,7 +14,7 @@ LAN должна обходить прокси и быть исключена и
 
 - AWS: `amazonaws.com` и поддомены → `PROXY`.
 - Исключения iCloud и связанных сервисов Apple: `apple-cloudkit.com`, `apple-dns.net`, `apple-livephotoskit.com`, `cdn-apple.com`, `gc.apple.com`, `icloud-content.com`, `icloud.com`, `iwork.apple.com` и их поддомены → `PROXY`; эти правила стоят перед общими списками Apple.
-- App Store / iTunes: `apps.apple.com`, `itunes.apple.com` и все их поддомены → `PROXY` перед общими списками Apple; кандидатный обход, требующий проверки на iPhone.
+- App Store / iTunes: `apps.apple.com`, `itunes.apple.com` и все их поддомены → `PROXY` перед общими списками Apple; работа App Store после изменений подтверждена пользователем на iPhone.
 - `captive.apple.com` и `push.apple.com` с поддоменами push → `DIRECT`.
 - Google → `PROXY` раньше общих Apple-списков: это сохраняет маршрут Google/Firebase для `crashlytics.com`, присутствующего в обоих источниках.
 - Остальной Apple по `Apple_Domain.list` и `Apple.list` → `DIRECT`.
@@ -25,7 +25,9 @@ LAN должна обходить прокси и быть исключена и
 - Ограниченные ресурсы (`geosite-ru-blocked`, `inside-clashx`, `no-russia-hosts`) → `PROXY`.
 - Всё остальное → `FINAL,DIRECT`.
 
-Кандидатный обход от 14 октября 2026 года охватывает семейства App Store / iTunes: на домашнем Mac у `speedysub.itunes.apple.com` и `amp-api.apps.apple.com` на одном CDN-адресе воспроизводится таймаут TLS после успешного TCP, а другой адрес с теми же SNI/Host отвечает по HTTPS. Охват сознательно шире проверенных узлов и включает остальные AMP-адреса и сервисы под `itunes.apple.com`; это не означает, что каждый поддомен неисправен. Причина зависания App Store на iPhone не установлена, сравнение этих запросов через «Турция iPhone» не выполнено. После обновления и применения профиля в режиме «Настройка» нужно проверить открытие профиля App Store и маршруты AMP и `speedysub` через выбранный сервер. `mzstatic.com` остаётся под общими правилами Apple.
+Обход от 14 октября 2026 года охватывает семейства App Store / iTunes: на домашнем Mac у `speedysub.itunes.apple.com` и `amp-api.apps.apple.com` на одном CDN-адресе воспроизводится таймаут TLS после успешного TCP, а другой адрес с теми же SNI/Host отвечает по HTTPS. Охват сознательно шире проверенных узлов и включает остальные AMP-адреса и сервисы под `itunes.apple.com`; это не означает, что каждый поддомен неисправен.
+
+14 октября 2026 года пользователь подтвердил, что после изменений App Store на iPhone работает без проблем. Это подтверждает функциональный результат текущей конфигурации; точная причина прежнего зависания не установлена, сравнительные HTTPS-тесты с Mac через «Турция iPhone» не выполнены. Охват правил сохраняется: `mzstatic.com` и остальной Apple остаются под прежними общими правилами, переводить их целиком в PROXY по результату этой проверки не требуется.
 
 `DOMAIN-KEYWORD,chatgpt-async-webps-prod-,PROXY` охватывает динамические имена ChatGPT в `webpubsub.azure.com`. В [конвертере Master-Yoba](https://github.com/Master-Yoba/shadowrocket-rules/blob/main/parse.py) `domain_regex` превращается в `URL-REGEX`; исходный шаблон имени не соответствует полному HTTPS/WSS URL и не заменяет доменное правило для TLS-трафика. Дополнение работает по имени хоста без MITM; остальные домены Azure целиком через PROXY не направляются.
 

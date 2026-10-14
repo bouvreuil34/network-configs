@@ -20,7 +20,7 @@ Wi-Fi работает по модели **DIRECT по умолчанию**. Ч�
 | Локальные и служебные IPv6: private, link-local, multicast и loopback | `DIRECT` |
 | AWS: `amazonaws.com` и поддомены | `PROXY` |
 | Исключения iCloud и связанных сервисов Apple: `apple-cloudkit.com`, `apple-dns.net`, `apple-livephotoskit.com`, `cdn-apple.com`, `gc.apple.com`, `icloud-content.com`, `icloud.com`, `iwork.apple.com` и их поддомены | `PROXY` |
-| App Store / iTunes: `apps.apple.com`, `itunes.apple.com` и все их поддомены; кандидатный обход, требующий проверки на iPhone | `PROXY` |
+| App Store / iTunes: `apps.apple.com`, `itunes.apple.com` и все их поддомены | `PROXY` |
 | `captive.apple.com`, `push.apple.com` и поддомены push | `DIRECT` |
 | Google по доменам: Master-Yoba `geosite-google.list`; раньше общих Apple-списков из-за пересечения по `crashlytics.com` | `PROXY` |
 | Остальной Apple по Blackmatrix `Apple_Domain.list` и `Apple.list` | `DIRECT` |
@@ -36,7 +36,7 @@ Wi-Fi работает по модели **DIRECT по умолчанию**. Ч�
 | `no-russia-hosts`: ресурсы, ограничивающие доступ с российских IP | `PROXY` |
 | Всё остальное, включая российские домены/IP без совпадения выше (`FINAL`) | `DIRECT` |
 
-Исключения App Store / iTunes совпадают с `wifi.conf`; [основание и контрольная проверка](wifi.md#интернет-маршрутизация). Их эффективность на iPhone пока не подтверждена. `mzstatic.com` остаётся под общими правилами Apple.
+Исключения App Store / iTunes совпадают с `wifi.conf`; [основание и результат проверки](wifi.md#интернет-маршрутизация). 14 октября 2026 года пользователь подтвердил работу App Store на iPhone без проблем после изменений. Точная причина прежнего зависания не установлена. Охват правил сохраняется; `mzstatic.com` остаётся под общими правилами Apple.
 
 Правило `192.168.168.0/24` с точной политикой `Домашний роутер` и `no-resolve` должно стоять раньше общего `192.168.0.0/16 → DIRECT`. Обе подсети остаются внутри TUN: их нельзя добавлять в `skip-proxy` или `tun-excluded-routes`. Существующая логика остальных исключений сохраняется. LAN не блокируется через REJECT.
 
