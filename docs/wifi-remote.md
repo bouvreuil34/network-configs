@@ -21,10 +21,11 @@ Wi-Fi работает по модели **DIRECT по умолчанию**. Ч�
 | AWS: `amazonaws.com` и поддомены | `PROXY` |
 | Исключения iCloud и связанных сервисов Apple: `apple-cloudkit.com`, `apple-dns.net`, `apple-livephotoskit.com`, `cdn-apple.com`, `gc.apple.com`, `icloud-content.com`, `icloud.com`, `iwork.apple.com` и их поддомены | `PROXY` |
 | App Store / iTunes: `apps.apple.com`, `itunes.apple.com` и все их поддомены; кандидатный обход, требующий проверки на iPhone | `PROXY` |
-| `captive.apple.com`, `push.apple.com` и поддомены push; остальной Apple по Blackmatrix `Apple_Domain.list` и `Apple.list` | `DIRECT` |
-| Google по доменам: Master-Yoba `geosite-google.list` | `PROXY` |
+| `captive.apple.com`, `push.apple.com` и поддомены push | `DIRECT` |
+| Google по доменам: Master-Yoba `geosite-google.list`; раньше общих Apple-списков из-за пересечения по `crashlytics.com` | `PROXY` |
+| Остальной Apple по Blackmatrix `Apple_Domain.list` и `Apple.list` | `DIRECT` |
 | Meta / Facebook / Instagram / WhatsApp по доменам: Master-Yoba `geosite-meta.list` | `PROXY` |
-| OpenAI: `cdn.openaimerge.com`, затем `geosite-openai.list` от Master-Yoba | `PROXY` |
+| OpenAI: `cdn.openaimerge.com`, имена с `chatgpt-async-webps-prod-`, затем `geosite-openai.list` от Master-Yoba | `PROXY` |
 | Prefect / FastMCP / Horizon: `fastmcp.app`, `gofastmcp.com`, `prefect.cloud`, `prefect.io`, `workos.com` и их поддомены | `PROXY` |
 | Telegram по доменам: Master-Yoba `geosite-telegram.list` | `PROXY` |
 | YouTube: Blackmatrix `YouTube.list` | `PROXY` |
@@ -39,7 +40,7 @@ Wi-Fi работает по модели **DIRECT по умолчанию**. Ч�
 
 Правило `192.168.168.0/24` с точной политикой `Домашний роутер` и `no-resolve` должно стоять раньше общего `192.168.0.0/16 → DIRECT`. Обе подсети остаются внутри TUN: их нельзя добавлять в `skip-proxy` или `tun-excluded-routes`. Существующая логика остальных исключений сохраняется. LAN не блокируется через REJECT.
 
-Доменные и IP-правила Meta/Telegram намеренно разделены для прозрачности; комбинированные Blackmatrix Google, Facebook и Telegram заменены указанными списками Master-Yoba. Отдельные IP-списки Google, YouTube и OpenAI и ASN-правила не используются. Источники YouTube и Apple сохранены без изменений. Для OpenAI обязательны отдельное доменное правило `cdn.openaimerge.com` и список `https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-openai.list`; старый Blackmatrix OpenAI.list не используется.
+Доменные и IP-правила Meta/Telegram намеренно разделены для прозрачности; комбинированные Blackmatrix Google, Facebook и Telegram заменены указанными списками Master-Yoba. Отдельные IP-списки Google, YouTube и OpenAI и ASN-правила не используются. Источники YouTube и Apple сохранены без изменений. Для OpenAI обязательны отдельные правила `DOMAIN,cdn.openaimerge.com,PROXY`, `DOMAIN-KEYWORD,chatgpt-async-webps-prod-,PROXY` и список `https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-openai.list`; [основание доменного дополнения](wifi.md#интернет-маршрутизация). Старый Blackmatrix OpenAI.list не используется.
 
 Все три источника проблемных ресурсов сохраняются:
 
