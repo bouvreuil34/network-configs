@@ -14,7 +14,7 @@ LAN должна обходить прокси и быть исключена и
 
 - AWS: `amazonaws.com` и поддомены → `PROXY`.
 - Исключения iCloud и связанных сервисов Apple: `apple-cloudkit.com`, `apple-dns.net`, `apple-livephotoskit.com`, `cdn-apple.com`, `gc.apple.com`, `icloud-content.com`, `icloud.com`, `iwork.apple.com` и их поддомены → `PROXY`; эти правила стоят перед общими списками Apple.
-- App Store: только `speedysub.itunes.apple.com` → `PROXY` перед общими списками Apple; кандидатный обход, требующий проверки на iPhone.
+- App Store / iTunes: `apps.apple.com`, `itunes.apple.com` и все их поддомены → `PROXY` перед общими списками Apple; кандидатный обход, требующий проверки на iPhone.
 - Остальной Apple по `Apple_Domain.list` и `Apple.list`, а также `captive.apple.com` и `push.apple.com` с поддоменами push → `DIRECT`.
 - Google / Meta / OpenAI → `PROXY`.
 - Prefect / FastMCP / Horizon (`fastmcp.app`, `gofastmcp.com`, `prefect.cloud`, `prefect.io`, `workos.com` и их поддомены) → `PROXY`.
@@ -23,7 +23,7 @@ LAN должна обходить прокси и быть исключена и
 - Ограниченные ресурсы (`geosite-ru-blocked`, `inside-clashx`, `no-russia-hosts`) → `PROXY`.
 - Всё остальное → `FINAL,DIRECT`.
 
-Кандидатный обход от 14 октября 2026 года связан с двумя DIRECT-подключениями `speedysub.itunes.apple.com` в логе зависания: на домашнем Mac для того же CDN-адреса воспроизводится таймаут TLS после успешного TCP, а другой адрес с теми же SNI/Host отвечает по HTTPS. Это не устанавливает причину зависания App Store на iPhone; сравнение этого запроса через «Турция iPhone» не выполнено. После обновления и применения профиля в режиме «Настройка» нужно проверить открытие профиля App Store и маршрут этого домена через выбранный сервер. `apps.apple.com`, остальные `itunes.apple.com` и `mzstatic.com` остаются под общими правилами Apple.
+Кандидатный обход от 14 октября 2026 года охватывает семейства App Store / iTunes: на домашнем Mac у `speedysub.itunes.apple.com` и `amp-api.apps.apple.com` на одном CDN-адресе воспроизводится таймаут TLS после успешного TCP, а другой адрес с теми же SNI/Host отвечает по HTTPS. Охват сознательно шире проверенных узлов и включает остальные AMP-адреса и сервисы под `itunes.apple.com`; это не означает, что каждый поддомен неисправен. Причина зависания App Store на iPhone не установлена, сравнение этих запросов через «Турция iPhone» не выполнено. После обновления и применения профиля в режиме «Настройка» нужно проверить открытие профиля App Store и маршруты AMP и `speedysub` через выбранный сервер. `mzstatic.com` остаётся под общими правилами Apple.
 
 DNS совпадает с `wifi-remote.conf`: DIRECT использует системный DNS текущей сети (`dns-server = system`). Дома запросы идут через Netcraze к DNS, полученным от провайдера МТС; в другой Wi-Fi-сети — к её DNS, в мобильной сети — к DNS оператора. `dns-direct-system` включён, `dns-fallback-system` и `dns-direct-fallback-proxy` выключены. Отдельный fallback DNS в Shadowrocket не используется. Публичный DoH намеренно не используется для обычного DIRECT-трафика из-за возможных проблем с географическим выбором российских CDN.
 
