@@ -46,7 +46,7 @@ Google, Meta, OpenAI, Telegram и весь YouTube всегда идут чер�
 | AWS: `amazonaws.com` и поддомены | `Mobile` |
 | Google | `Mobile` |
 | Meta по доменам | `Mobile` |
-| OpenAI: `cdn.openaimerge.com`, затем `geosite-openai.list` | `Mobile` |
+| OpenAI: `cdn.openaimerge.com`, имена с `chatgpt-async-webps-prod-`, затем `geosite-openai.list` | `Mobile` |
 | Prefect / FastMCP / Horizon: `fastmcp.app`, `gofastmcp.com`, `prefect.cloud`, `prefect.io`, `workos.com` и их поддомены | `Mobile` |
 | Telegram по доменам | `Mobile` |
 | YouTube | `Mobile` |
@@ -59,6 +59,8 @@ Google, Meta, OpenAI, Telegram и весь YouTube всегда идут чер�
 | Всё остальное, включая российские домены/IP без совпадения выше (`FINAL`) | `DIRECT` |
 
 `cdn.openaimerge.com` нужен OpenAI, но отсутствует в используемом [geosite-openai.list](https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-openai.list), поэтому перед списком сохранено отдельное доменное правило.
+
+`DOMAIN-KEYWORD,chatgpt-async-webps-prod-,Mobile` направляет динамические соединения ChatGPT в `webpubsub.azure.com` через группу `Mobile`. В upstream этот шаблон представлен как `URL-REGEX`; отдельное доменное правило сохраняет нужный маршрут для HTTPS/WSS без MITM, как в Wi-Fi-профилях.
 
 Горпарковки (`volgaparking.ru` и поддомены) — точечное исключение: `DIRECT` не подходит в режиме белых списков оператора, поэтому сервис использует российский LTE-VPN через `Mobile-RU`. Правило стоит перед Mobile allowlist и действует независимо от выбора в `Mobile`. Общей маршрутизации российских доменов через `Mobile-RU` нет.
 
