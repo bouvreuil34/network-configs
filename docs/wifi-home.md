@@ -1,8 +1,8 @@
 # Wi-Fi-профиль Shadowrocket с удалённым доступом к домашней сети
 
-Эта спецификация задаёт намеренное поведение `shadowrocket/wifi-remote.conf`. В будущем при расхождении сначала проверяется спецификация, а не старое поведение конфига. Приоритеты hobby-проекта — простота, прозрачность, надёжность, предсказуемость и минимум обслуживания.
+Эта спецификация задаёт намеренное поведение `shadowrocket/wifi-home.conf`. В будущем при расхождении сначала проверяется спецификация, а не старое поведение конфига. Приоритеты hobby-проекта — простота, прозрачность, надёжность, предсказуемость и минимум обслуживания.
 
-`wifi-remote.conf` используется на Wi-Fi вне домашней сети и обеспечивает удалённый доступ к `192.168.168.0/24` через `Домашний роутер`.
+`wifi-home.conf` используется на Wi-Fi вне домашней сети и обеспечивает удалённый доступ к `192.168.168.0/24` через `Домашний роутер`.
 
 Wi-Fi работает по модели **DIRECT по умолчанию**. Через PROXY идут только явно перечисленные сервисы и проблемные ресурсы. Российские домены и IP без совпадения с явными VPN-правилами идут DIRECT; правила `GEOIP,RU`, `geosite-category-ru` и отдельные российские proxy-группы не используются. Последнее правило — `FINAL,DIRECT`.
 
@@ -56,6 +56,6 @@ DIRECT использует системный DNS текущей сети (`dns
 
 IPv6 включён (`ipv6 = true`), предпочтение IPv6 выключено (`prefer-ipv6 = false`), ответы с частными IP разрешены (`private-ip-answer = true`).
 
-Сохраняются `bypass-system = true`, `block-quic = all-proxy` и `udp-policy-not-supported-behaviour = REJECT`. Адрес обновления профиля: `https://raw.githubusercontent.com/bouvreuil34/network-configs/main/shadowrocket/wifi-remote.conf`.
+Сохраняются `bypass-system = true`, `block-quic = all-proxy` и `udp-policy-not-supported-behaviour = REJECT`. Адрес обновления профиля: `https://raw.githubusercontent.com/bouvreuil34/network-configs/main/shadowrocket/wifi-home.conf`.
 
 [Обновление профиля и списка no-russia](../README.md#обновление-shadowrocket-и-списков).

@@ -19,9 +19,9 @@ cd network-configs
 ```
 
 В Shadowrocket импортируйте нужный профиль: `shadowrocket/mobile.conf`,
-`shadowrocket/wifi.conf`, `shadowrocket/wifi-remote.conf` или `shadowrocket/wifi-vladimir.conf`.
+`shadowrocket/wifi.conf`, `shadowrocket/wifi-home.conf` или `shadowrocket/wifi-vladimir.conf`.
 Намеренное поведение и зависимости профилей описаны в [mobile](docs/mobile.md),
-[wifi](docs/wifi.md), [wifi-remote](docs/wifi-remote.md) и [wifi-vladimir](docs/wifi-vladimir.md).
+[wifi](docs/wifi.md), [wifi-home](docs/wifi-home.md) и [wifi-vladimir](docs/wifi-vladimir.md).
 Подписки и сами VPN-серверы восстановите отдельно в приложении:
 Git хранит правила маршрутизации, а не доступ к VPN. Для Netcraze используйте списки
 `netcraze/vpn-*.txt` в прежних настройках маршрутизации; это не полный backup роутера.
@@ -35,7 +35,7 @@ backup. Серверную ОС и сервисы этот репозитори�
 
 - `shadowrocket/mobile.conf` — мобильная сеть.
 - `shadowrocket/wifi.conf` — обычный Wi-Fi, без удалённого доступа к домашней LAN; локальная LAN напрямую.
-- `shadowrocket/wifi-remote.conf` — Wi-Fi с удалённым доступом к домашней LAN.
+- `shadowrocket/wifi-home.conf` — Wi-Fi с удалённым доступом к домашней LAN.
 - `shadowrocket/wifi-vladimir.conf` — Wi-Fi-профиль Владимира для macOS; правила совпадают с `wifi.conf`, адрес обновления отдельный.
 
 ## Обновление Shadowrocket и списков
