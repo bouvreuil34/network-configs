@@ -26,6 +26,7 @@ Wi-Fi работает по модели **DIRECT по умолчанию**. Ч�
 | Остальной Apple по Blackmatrix `Apple_Domain.list` и `Apple.list` | `DIRECT` |
 | 4chan (`geosite-4chan.list`), включая изображения и статику на `4cdn.org` | `PROXY` |
 | Дополнительные домены Wi-Fi из [additional-domains.list](../shadowrocket/additional-domains.list) | `PROXY` |
+| Облако Bambu Lab и MakerWorld (`bambulab.com`, `bblcdn.com`, `bblmw.com`, `makerworld.com` и их поддомены) | `PROXY` |
 | Meta / Facebook / Instagram / WhatsApp по доменам: Master-Yoba `geosite-meta.list` | `PROXY` |
 | OpenAI: `cdn.openaimerge.com`, имена с `chatgpt-async-webps-prod-`, затем `geosite-openai.list` от Master-Yoba | `PROXY` |
 | Pixiv (`geosite-pixiv.list`), включая API на `pixiv.net` и изображения на `pximg.net` | `PROXY` |
