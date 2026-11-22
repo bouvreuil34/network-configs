@@ -24,8 +24,11 @@ Wi-Fi работает по модели **DIRECT по умолчанию**. Ч�
 | `captive.apple.com`, `push.apple.com` и поддомены push | `DIRECT` |
 | Google по доменам: Master-Yoba `geosite-google.list`; раньше общих Apple-списков из-за пересечения по `crashlytics.com` | `PROXY` |
 | Остальной Apple по Blackmatrix `Apple_Domain.list` и `Apple.list` | `DIRECT` |
+| 4chan (`geosite-4chan.list`), включая изображения и статику на `4cdn.org` | `PROXY` |
+| Literotica (`literotica.com`, `litimgs.com` и их поддомены) | `PROXY` |
 | Meta / Facebook / Instagram / WhatsApp по доменам: Master-Yoba `geosite-meta.list` | `PROXY` |
 | OpenAI: `cdn.openaimerge.com`, имена с `chatgpt-async-webps-prod-`, затем `geosite-openai.list` от Master-Yoba | `PROXY` |
+| Pixiv (`geosite-pixiv.list`), включая API на `pixiv.net` и изображения на `pximg.net` | `PROXY` |
 | Prefect / FastMCP / Horizon: `fastmcp.app`, `gofastmcp.com`, `prefect.cloud`, `prefect.io`, `workos.com` и их поддомены | `PROXY` |
 | Telegram по доменам: Master-Yoba `geosite-telegram.list` | `PROXY` |
 | YouTube: Blackmatrix `YouTube.list` | `PROXY` |

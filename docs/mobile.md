@@ -43,11 +43,14 @@ Google, Meta, Telegram и весь YouTube всегда идут через VPN 
 | --- | --- |
 | Локальные и служебные домены и адреса | `DIRECT` |
 | OpenAI: `cdn.openaimerge.com`, имена с `chatgpt-async-webps-prod-`, затем `geosite-openai.list` | `Турецкие серверы LTE` |
+| 4chan (`geosite-4chan.list`), включая изображения и статику на `4cdn.org` | `Обход блокировок` |
 | `captive.apple.com`, `push.apple.com` и поддомены push | `DIRECT` |
 | Остальной Apple: `Apple_Domain.list` и `Apple.list` | `Обход блокировок` |
 | AWS: `amazonaws.com` и поддомены | `Обход блокировок` |
 | Google | `Обход блокировок` |
+| Literotica (`literotica.com`, `litimgs.com` и их поддомены) | `Обход блокировок` |
 | Meta по доменам | `Обход блокировок` |
+| Pixiv (`geosite-pixiv.list`), включая API на `pixiv.net` и изображения на `pximg.net` | `Обход блокировок` |
 | Prefect / FastMCP / Horizon: `fastmcp.app`, `gofastmcp.com`, `prefect.cloud`, `prefect.io`, `workos.com` и их поддомены | `Обход блокировок` |
 | Telegram по доменам | `Обход блокировок` |
 | YouTube | `Обход блокировок` |
