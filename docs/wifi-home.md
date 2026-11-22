@@ -28,7 +28,6 @@ Wi-Fi работает по модели **DIRECT по умолчанию**. Ч�
 | Дополнительные домены Wi-Fi из [additional-domains.list](../shadowrocket/additional-domains.list) | `PROXY` |
 | Meta / Facebook / Instagram / WhatsApp по доменам: Master-Yoba `geosite-meta.list` | `PROXY` |
 | OpenAI: `cdn.openaimerge.com`, имена с `chatgpt-async-webps-prod-`, затем `geosite-openai.list` от Master-Yoba | `PROXY` |
-| Pixiv (`geosite-pixiv.list`), включая API на `pixiv.net` и изображения на `pximg.net` | `PROXY` |
 | Prefect / FastMCP / Horizon: `fastmcp.app`, `gofastmcp.com`, `prefect.cloud`, `prefect.io`, `workos.com` и их поддомены | `PROXY` |
 | Telegram по доменам: Master-Yoba `geosite-telegram.list` | `PROXY` |
 | YouTube: Blackmatrix `YouTube.list` | `PROXY` |

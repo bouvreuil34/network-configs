@@ -21,7 +21,6 @@ LAN должна обходить прокси и быть исключена и
 - 4chan (`geosite-4chan.list`), включая изображения и статику на `4cdn.org` → `PROXY`.
 - Дополнительные домены Wi-Fi из [additional-domains.list](../shadowrocket/additional-domains.list) → `PROXY`.
 - Meta / OpenAI → `PROXY`. Для OpenAI дополнительно сохраняются `cdn.openaimerge.com` и доменное правило по префиксу `chatgpt-async-webps-prod-`.
-- Pixiv (`geosite-pixiv.list`), включая API на `pixiv.net` и изображения на `pximg.net` → `PROXY`.
 - Prefect / FastMCP / Horizon (`fastmcp.app`, `gofastmcp.com`, `prefect.cloud`, `prefect.io`, `workos.com` и их поддомены) → `PROXY`.
 - Telegram / YouTube → `PROXY`.
 - IP-списки Meta и Telegram → `PROXY`.
