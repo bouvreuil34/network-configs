@@ -171,9 +171,6 @@ rules:
   - 'IP-CIDR6,FE80::/10,DIRECT,no-resolve'
   - 'IP-CIDR6,FF00::/8,DIRECT,no-resolve'
 
-  # IP check
-  - 'SUB-RULE,(DOMAIN-SUFFIX,2ip.io),via-proxy'
-
   # AWS / iCloud overrides
   - 'SUB-RULE,(DOMAIN-SUFFIX,amazonaws.com),via-proxy'
   - 'SUB-RULE,(DOMAIN-SUFFIX,apple-cloudkit.com),via-proxy'
