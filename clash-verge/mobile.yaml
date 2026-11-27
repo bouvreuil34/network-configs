@@ -130,7 +130,7 @@ rule-providers:
     type: http
     behavior: classical
     format: text
-    url: https://raw.githubusercontent.com/bouvreuil34/network-configs/main/shadowrocket/no-russia.list
+    url: https://raw.githubusercontent.com/bouvreuil34/vpn-configs/main/shadowrocket/no-russia.list
     path: ./ruleset/network-configs/no-russia.text
     interval: 86400
   facebook-ip:

@@ -12,8 +12,8 @@
 ## Восстановление и использование
 
 ```bash
-git clone https://github.com/bouvreuil34/network-configs.git
-cd network-configs
+git clone https://github.com/bouvreuil34/vpn-configs.git
+cd vpn-configs
 ./scripts/net-check.sh example.com 443
 ./scripts/ssh-tunnel.sh socks my-vps 1080
 ```

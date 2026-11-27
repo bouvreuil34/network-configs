@@ -2,8 +2,8 @@
 
 | Подключение ноутбука | URL для импорта в Clash |
 | --- | --- |
-| Обычный Wi‑Fi | [Wi‑Fi](https://raw.githubusercontent.com/bouvreuil34/network-configs/main/clash-verge/wifi.yaml) |
-| Раздача интернета с телефона | [Mobile](https://raw.githubusercontent.com/bouvreuil34/network-configs/main/clash-verge/mobile.yaml) |
+| Обычный Wi‑Fi | [Wi‑Fi](https://raw.githubusercontent.com/bouvreuil34/vpn-configs/main/clash-verge/wifi.yaml) |
+| Раздача интернета с телефона | [Mobile](https://raw.githubusercontent.com/bouvreuil34/vpn-configs/main/clash-verge/mobile.yaml) |
 
 Оба профиля используют одну подписку «Платный VPN». В Wi‑Fi выбери свой узел в группе `PROXY`. Mobile сохраняет выбор LTE-узлов из Shadowrocket. OpenAI идёт через турецкие узлы, `atomic-pr.ru` и `volgaparking.ru` через российские, а мобильный белый список обслуживается напрямую по порядку правил профиля.
 
