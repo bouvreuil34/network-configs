@@ -1,0 +1,230 @@
+# Clash Verge Rev / Mihomo — Mobile
+# Источник маршрутов: shadowrocket/mobile.conf
+# Подписка добавляется локально. См. clash-verge/README.md.
+mode: rule
+ipv6: false
+allow-lan: false
+profile:
+  store-selected: true
+
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: redir-host
+  default-nameserver: [system]
+  nameserver: [system]
+  proxy-server-nameserver: [system]
+  direct-nameserver: [system]
+  nameserver-policy:
+    'rule-set:openai':
+      - 'https://cloudflare-dns.com/dns-query#Турецкие серверы LTE'
+      - 'https://dns.google/dns-query#Турецкие серверы LTE'
+    'rule-set:google,meta,telegram,youtube':
+      - 'https://cloudflare-dns.com/dns-query#Обход блокировок'
+      - 'https://dns.google/dns-query#Обход блокировок'
+
+proxy-providers:
+  bouvreuil34-paid-vpn:
+    type: inline
+    payload: []
+
+proxy-groups:
+  - name: Обход блокировок
+    type: select
+    proxies: [Зарубежные серверы LTE, Ручной выбор LTE]
+  - name: Зарубежные серверы LTE
+    type: fallback
+    use: [bouvreuil34-paid-vpn]
+    filter: '^(?=.*LTE)(?!.*(Авто|Москва|МСК|Санкт-Петербург|СПБ|Екатеринбург|Хабаровск|Россия|РФ|LTE №61\b|(?i:LTE - БЕЗЛИМИТ #1 \| TORRENT))).*$'
+    empty-fallback: REJECT
+    url: https://cp.cloudflare.com/generate_204
+    interval: 120
+    timeout: 4000
+  - name: Российские серверы LTE
+    type: fallback
+    use: [bouvreuil34-paid-vpn]
+    filter: '^(?=.*LTE)(?=.*(Екатеринбург|Москва|МСК|Санкт-Петербург|СПБ|Хабаровск|Россия|РФ))(?!.*Авто).*$'
+    empty-fallback: REJECT
+    url: https://cp.cloudflare.com/generate_204
+    interval: 120
+    timeout: 4000
+  - name: Турецкие серверы LTE
+    type: fallback
+    use: [bouvreuil34-paid-vpn]
+    filter: 'LTE(?! Авто).*Турция'
+    empty-fallback: REJECT
+    url: https://cp.cloudflare.com/generate_204
+    interval: 120
+    timeout: 4000
+  - name: Ручной выбор LTE
+    type: select
+    use: [bouvreuil34-paid-vpn]
+    filter: 'LTE'
+    empty-fallback: REJECT
+
+rule-providers:
+  openai:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-openai.list
+    path: ./ruleset/network-configs/openai.text
+    interval: 86400
+  apple-domains:
+    type: http
+    behavior: domain
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple_Domain.yaml
+    path: ./ruleset/network-configs/apple-domains.yaml
+    interval: 86400
+  apple:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.yaml
+    path: ./ruleset/network-configs/apple.yaml
+    interval: 86400
+  google:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-google.list
+    path: ./ruleset/network-configs/google.text
+    interval: 86400
+  meta:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-meta.list
+    path: ./ruleset/network-configs/meta.text
+    interval: 86400
+  telegram:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-telegram.list
+    path: ./ruleset/network-configs/telegram.text
+    interval: 86400
+  youtube:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.yaml
+    path: ./ruleset/network-configs/youtube.yaml
+    interval: 86400
+  mobile-whitelist:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-ru-mobile-whitelist.list
+    path: ./ruleset/network-configs/mobile-whitelist.text
+    interval: 86400
+  inside-russia:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/itdoginfo/allow-domains/main/Russia/inside-clashx.lst
+    path: ./ruleset/network-configs/inside-russia.text
+    interval: 86400
+  no-russia:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/bouvreuil34/network-configs/main/shadowrocket/no-russia.list
+    path: ./ruleset/network-configs/no-russia.text
+    interval: 86400
+  facebook-ip:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geoip/geoip-facebook.list
+    path: ./ruleset/network-configs/facebook-ip.text
+    interval: 86400
+  telegram-ip:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geoip/geoip-telegram.list
+    path: ./ruleset/network-configs/telegram-ip.text
+    interval: 86400
+
+sub-rules:
+  via-russia:
+    - 'AND,((NETWORK,UDP),(DST-PORT,443)),REJECT'
+    - 'MATCH,Российские серверы LTE'
+  via-turkey:
+    - 'AND,((NETWORK,UDP),(DST-PORT,443)),REJECT'
+    - 'MATCH,Турецкие серверы LTE'
+  via-lte:
+    - 'AND,((NETWORK,UDP),(DST-PORT,443)),REJECT'
+    - 'MATCH,Обход блокировок'
+
+rules:
+  # Local / special-use
+  - 'DOMAIN-SUFFIX,arpa,DIRECT'
+  - 'DOMAIN-SUFFIX,lan,DIRECT'
+  - 'DOMAIN-SUFFIX,local,DIRECT'
+  - 'DOMAIN,localhost,DIRECT'
+  - 'IP-CIDR,10.0.0.0/8,DIRECT,no-resolve'
+  - 'IP-CIDR,100.64.0.0/10,DIRECT,no-resolve'
+  - 'IP-CIDR,127.0.0.0/8,DIRECT,no-resolve'
+  - 'IP-CIDR,169.254.0.0/16,DIRECT,no-resolve'
+  - 'IP-CIDR,172.16.0.0/12,DIRECT,no-resolve'
+  - 'IP-CIDR,192.168.0.0/16,DIRECT,no-resolve'
+  - 'IP-CIDR,224.0.0.0/4,DIRECT,no-resolve'
+  - 'IP-CIDR,255.255.255.255/32,DIRECT,no-resolve'
+  - 'IP-CIDR6,::1/128,DIRECT,no-resolve'
+  - 'IP-CIDR6,FC00::/7,DIRECT,no-resolve'
+  - 'IP-CIDR6,FE80::/10,DIRECT,no-resolve'
+  - 'IP-CIDR6,FF00::/8,DIRECT,no-resolve'
+
+  # ATOMIC PR
+  - 'SUB-RULE,(DOMAIN-SUFFIX,atomic-pr.ru),via-russia'
+
+  # OpenAI
+  - 'SUB-RULE,(DOMAIN,cdn.openaimerge.com),via-turkey'
+  - 'SUB-RULE,(DOMAIN-KEYWORD,chatgpt-async-webps-prod-),via-turkey'
+  - 'SUB-RULE,(RULE-SET,openai),via-turkey'
+
+  # Apple
+  - 'DOMAIN,captive.apple.com,DIRECT'
+  - 'DOMAIN-SUFFIX,push.apple.com,DIRECT'
+  - 'SUB-RULE,(RULE-SET,apple-domains),via-lte'
+  - 'SUB-RULE,(RULE-SET,apple),via-lte'
+
+  # AWS
+  - 'SUB-RULE,(DOMAIN-SUFFIX,amazonaws.com),via-lte'
+
+  # Google
+  - 'SUB-RULE,(RULE-SET,google),via-lte'
+
+  # Meta
+  - 'SUB-RULE,(RULE-SET,meta),via-lte'
+
+  # Prefect
+  - 'SUB-RULE,(DOMAIN-SUFFIX,fastmcp.app),via-lte'
+  - 'SUB-RULE,(DOMAIN-SUFFIX,gofastmcp.com),via-lte'
+  - 'SUB-RULE,(DOMAIN-SUFFIX,prefect.cloud),via-lte'
+  - 'SUB-RULE,(DOMAIN-SUFFIX,prefect.io),via-lte'
+  - 'SUB-RULE,(DOMAIN-SUFFIX,workos.com),via-lte'
+
+  # Telegram
+  - 'SUB-RULE,(RULE-SET,telegram),via-lte'
+
+  # YouTube
+  - 'SUB-RULE,(RULE-SET,youtube),via-lte'
+
+  # Volgaparking
+  - 'SUB-RULE,(DOMAIN-SUFFIX,volgaparking.ru),via-russia'
+
+  # Mobile allowlist
+  - 'RULE-SET,mobile-whitelist,DIRECT'
+
+  # Restricted domains
+  - 'SUB-RULE,(RULE-SET,inside-russia),via-lte'
+  - 'SUB-RULE,(RULE-SET,no-russia),via-lte'
+
+  # IP ranges
+  - 'SUB-RULE,(RULE-SET,facebook-ip,no-resolve),via-lte'
+  - 'SUB-RULE,(RULE-SET,telegram-ip,no-resolve),via-lte'
+  - 'MATCH,DIRECT'

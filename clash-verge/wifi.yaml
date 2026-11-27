@@ -1,0 +1,232 @@
+# Clash Verge Rev / Mihomo — Wi-Fi
+# Источник маршрутов: shadowrocket/wifi.conf
+# Подписка добавляется локально. См. clash-verge/README.md.
+mode: rule
+ipv6: true
+allow-lan: false
+profile:
+  store-selected: true
+
+dns:
+  enable: true
+  ipv6: true
+  enhanced-mode: redir-host
+  default-nameserver: [system]
+  nameserver: [system]
+
+proxy-providers:
+  bouvreuil34-paid-vpn:
+    type: inline
+    payload: []
+
+proxy-groups:
+  - name: PROXY
+    type: select
+    use: [bouvreuil34-paid-vpn]
+    empty-fallback: REJECT
+
+rule-providers:
+  google:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-google.list
+    path: ./ruleset/network-configs/google.text
+    interval: 86400
+  apple-domains:
+    type: http
+    behavior: domain
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple_Domain.yaml
+    path: ./ruleset/network-configs/apple-domains.yaml
+    interval: 86400
+  apple:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.yaml
+    path: ./ruleset/network-configs/apple.yaml
+    interval: 86400
+  fourchan:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-4chan.list
+    path: ./ruleset/network-configs/fourchan.text
+    interval: 86400
+  additional-domains:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/bouvreuil34/network-configs/main/shadowrocket/additional-domains.list
+    path: ./ruleset/network-configs/additional-domains.text
+    interval: 86400
+  meta:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-meta.list
+    path: ./ruleset/network-configs/meta.text
+    interval: 86400
+  openai:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-openai.list
+    path: ./ruleset/network-configs/openai.text
+    interval: 86400
+  pixiv:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-pixiv.list
+    path: ./ruleset/network-configs/pixiv.text
+    interval: 86400
+  telegram:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-telegram.list
+    path: ./ruleset/network-configs/telegram.text
+    interval: 86400
+  youtube:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.yaml
+    path: ./ruleset/network-configs/youtube.yaml
+    interval: 86400
+  facebook-ip:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geoip/geoip-facebook.list
+    path: ./ruleset/network-configs/facebook-ip.text
+    interval: 86400
+  telegram-ip:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geoip/geoip-telegram.list
+    path: ./ruleset/network-configs/telegram-ip.text
+    interval: 86400
+  ru-blocked:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-ru-blocked.list
+    path: ./ruleset/network-configs/ru-blocked.text
+    interval: 86400
+  inside-russia:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/itdoginfo/allow-domains/main/Russia/inside-clashx.lst
+    path: ./ruleset/network-configs/inside-russia.text
+    interval: 86400
+  no-russia:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/bouvreuil34/network-configs/main/shadowrocket/no-russia.list
+    path: ./ruleset/network-configs/no-russia.text
+    interval: 86400
+
+sub-rules:
+  via-proxy:
+    - 'AND,((NETWORK,UDP),(DST-PORT,443)),REJECT'
+    - 'MATCH,PROXY'
+
+rules:
+  # Local / special-use
+  - 'DOMAIN-SUFFIX,arpa,DIRECT'
+  - 'DOMAIN-SUFFIX,lan,DIRECT'
+  - 'DOMAIN-SUFFIX,local,DIRECT'
+  - 'DOMAIN,localhost,DIRECT'
+  - 'IP-CIDR,10.0.0.0/8,DIRECT,no-resolve'
+  - 'IP-CIDR,100.64.0.0/10,DIRECT,no-resolve'
+  - 'IP-CIDR,127.0.0.0/8,DIRECT,no-resolve'
+  - 'IP-CIDR,169.254.0.0/16,DIRECT,no-resolve'
+  - 'IP-CIDR,172.16.0.0/12,DIRECT,no-resolve'
+  - 'IP-CIDR,192.168.0.0/16,DIRECT,no-resolve'
+  - 'IP-CIDR,224.0.0.0/4,DIRECT,no-resolve'
+  - 'IP-CIDR,255.255.255.255/32,DIRECT,no-resolve'
+  - 'IP-CIDR6,::1/128,DIRECT,no-resolve'
+  - 'IP-CIDR6,FC00::/7,DIRECT,no-resolve'
+  - 'IP-CIDR6,FE80::/10,DIRECT,no-resolve'
+  - 'IP-CIDR6,FF00::/8,DIRECT,no-resolve'
+
+  # AWS / iCloud overrides
+  - 'SUB-RULE,(DOMAIN-SUFFIX,amazonaws.com),via-proxy'
+  - 'SUB-RULE,(DOMAIN-SUFFIX,apple-cloudkit.com),via-proxy'
+  - 'SUB-RULE,(DOMAIN-SUFFIX,apple-dns.net),via-proxy'
+  - 'SUB-RULE,(DOMAIN-SUFFIX,apple-livephotoskit.com),via-proxy'
+  - 'SUB-RULE,(DOMAIN-SUFFIX,cdn-apple.com),via-proxy'
+  - 'SUB-RULE,(DOMAIN-SUFFIX,gc.apple.com),via-proxy'
+  - 'SUB-RULE,(DOMAIN-SUFFIX,icloud-content.com),via-proxy'
+  - 'SUB-RULE,(DOMAIN-SUFFIX,icloud.com),via-proxy'
+  - 'SUB-RULE,(DOMAIN-SUFFIX,iwork.apple.com),via-proxy'
+
+  # App Store (candidate workaround)
+  - 'SUB-RULE,(DOMAIN-SUFFIX,apps.apple.com),via-proxy'
+  - 'SUB-RULE,(DOMAIN-SUFFIX,itunes.apple.com),via-proxy'
+
+  # Apple connectivity
+  - 'DOMAIN,captive.apple.com,DIRECT'
+  - 'DOMAIN-SUFFIX,push.apple.com,DIRECT'
+
+  # Google before general Apple lists (Crashlytics overlap)
+  - 'SUB-RULE,(RULE-SET,google),via-proxy'
+
+  # Safari translation
+  - 'SUB-RULE,(DOMAIN,sequoia.apple.com),via-proxy'
+
+  # Apple
+  - 'RULE-SET,apple-domains,DIRECT'
+  - 'RULE-SET,apple,DIRECT'
+
+  # 4chan
+  - 'SUB-RULE,(RULE-SET,fourchan),via-proxy'
+
+  # Additional domains
+  - 'SUB-RULE,(RULE-SET,additional-domains),via-proxy'
+
+  # Bambu Lab
+  - 'SUB-RULE,(DOMAIN-SUFFIX,bambulab.com),via-proxy'
+  - 'SUB-RULE,(DOMAIN-SUFFIX,bblcdn.com),via-proxy'
+  - 'SUB-RULE,(DOMAIN-SUFFIX,bblmw.com),via-proxy'
+  - 'SUB-RULE,(DOMAIN-SUFFIX,makerworld.com),via-proxy'
+
+  # Meta
+  - 'SUB-RULE,(RULE-SET,meta),via-proxy'
+
+  # OpenAI
+  - 'SUB-RULE,(DOMAIN,cdn.openaimerge.com),via-proxy'
+  - 'SUB-RULE,(DOMAIN-KEYWORD,chatgpt-async-webps-prod-),via-proxy'
+  - 'SUB-RULE,(RULE-SET,openai),via-proxy'
+
+  # Pixiv
+  - 'SUB-RULE,(RULE-SET,pixiv),via-proxy'
+
+  # Prefect
+  - 'SUB-RULE,(DOMAIN-SUFFIX,fastmcp.app),via-proxy'
+  - 'SUB-RULE,(DOMAIN-SUFFIX,gofastmcp.com),via-proxy'
+  - 'SUB-RULE,(DOMAIN-SUFFIX,prefect.cloud),via-proxy'
+  - 'SUB-RULE,(DOMAIN-SUFFIX,prefect.io),via-proxy'
+  - 'SUB-RULE,(DOMAIN-SUFFIX,workos.com),via-proxy'
+
+  # Telegram
+  - 'SUB-RULE,(RULE-SET,telegram),via-proxy'
+
+  # YouTube
+  - 'SUB-RULE,(RULE-SET,youtube),via-proxy'
+
+  # IP ranges
+  - 'SUB-RULE,(RULE-SET,facebook-ip,no-resolve),via-proxy'
+  - 'SUB-RULE,(RULE-SET,telegram-ip,no-resolve),via-proxy'
+
+  # Restricted domains
+  - 'SUB-RULE,(RULE-SET,ru-blocked),via-proxy'
+  - 'SUB-RULE,(RULE-SET,inside-russia),via-proxy'
+  - 'SUB-RULE,(RULE-SET,no-russia),via-proxy'
+  - 'MATCH,DIRECT'
