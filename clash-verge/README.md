@@ -19,7 +19,7 @@ function main(config) {
   if (provider && /^https?:\/\//i.test(subscriptionUrl)) {
     provider.type = "http"
     provider.url = subscriptionUrl
-    provider.path = "./proxies/network-configs-paid-vpn.yaml"
+    provider.path = "./proxies/vpn-configs-paid-vpn.yaml"
     provider.interval = 3600
   }
   return config
