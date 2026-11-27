@@ -1,6 +1,6 @@
 # Wi-Fi-профиль Shadowrocket с удалённым доступом к домашней сети
 
-Эта спецификация задаёт намеренное поведение `shadowrocket/wifi-home.conf`. В будущем при расхождении сначала проверяется спецификация, а не старое поведение конфига. Приоритеты hobby-проекта — простота, прозрачность, надёжность, предсказуемость и минимум обслуживания.
+Эта спецификация задаёт намеренное поведение `wifi-home.conf`. В будущем при расхождении сначала проверяется спецификация, а не старое поведение конфига. Приоритеты hobby-проекта — простота, прозрачность, надёжность, предсказуемость и минимум обслуживания.
 
 `wifi-home.conf` используется на Wi-Fi вне домашней сети и обеспечивает удалённый доступ к `192.168.168.0/24` через `Домашний роутер`.
 
@@ -50,7 +50,7 @@ Wi-Fi работает по модели **DIRECT по умолчанию**. Ч�
 
 - geosite-ru-blocked: `https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/geosite-ru-blocked.list`.
 - inside-clashx: `https://raw.githubusercontent.com/itdoginfo/allow-domains/main/Russia/inside-clashx.lst`.
-- no-russia-hosts: `https://raw.githubusercontent.com/bouvreuil34/network-configs/main/shadowrocket/no-russia.list` (`RULE-SET` с `DOMAIN-SUFFIX` для доменов и поддоменов).
+- no-russia-hosts: `https://raw.githubusercontent.com/bouvreuil34/vpn-configs/main/shadowrocket/no-russia.list` (`RULE-SET` с `DOMAIN-SUFFIX` для доменов и поддоменов).
 
 ## DNS и IPv6
 
@@ -60,6 +60,6 @@ DIRECT использует системный DNS текущей сети (`dns
 
 IPv6 включён (`ipv6 = true`), предпочтение IPv6 выключено (`prefer-ipv6 = false`), ответы с частными IP разрешены (`private-ip-answer = true`).
 
-Сохраняются `bypass-system = true`, `block-quic = all-proxy` и `udp-policy-not-supported-behaviour = REJECT`. Адрес обновления профиля: `https://raw.githubusercontent.com/bouvreuil34/network-configs/main/shadowrocket/wifi-home.conf`.
+Сохраняются `bypass-system = true`, `block-quic = all-proxy` и `udp-policy-not-supported-behaviour = REJECT`. Адрес обновления профиля: `https://raw.githubusercontent.com/bouvreuil34/vpn-configs/main/wifi-home.conf`.
 
 [Обновление профиля и списка no-russia](../README.md#обновление-shadowrocket-и-списков).

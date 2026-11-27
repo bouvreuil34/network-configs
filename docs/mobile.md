@@ -1,6 +1,6 @@
 # Мобильный профиль Shadowrocket
 
-Эта спецификация задаёт намеренное поведение `shadowrocket/mobile.conf`. Будущие изменения конфига следует проверять относительно неё. Приоритеты hobby-проекта — простота, прозрачность, предсказуемость и минимум обслуживания.
+Эта спецификация задаёт намеренное поведение `mobile.conf`. Будущие изменения конфига следует проверять относительно неё. Приоритеты hobby-проекта — простота, прозрачность, предсказуемость и минимум обслуживания.
 
 Профиль Mobile использует **DIRECT по умолчанию**. VPN включается только для явно перечисленных ниже сервисов и списков. Российские домены и IP идут напрямую, если не совпали с явным VPN-правилом. Общей маршрутизации по России нет; `Российские серверы LTE` автоматически выбирает российский LTE-сервер для Горпарковок и ATOMIC PR. Последнее правило — `FINAL,DIRECT`.
 
@@ -18,7 +18,7 @@ proxy-dns-server = 77.88.8.8
 
 IPv6 намеренно отключён: `ipv6 = false`, `prefer-ipv6 = false`. Ответы DNS с частными IP разрешены (`private-ip-answer = true`). Локальная сеть не блокируется: localhost, домены `.arpa`, `.lan`, `.local`, частные, link-local и multicast адреса IPv4/IPv6 обрабатываются напрямую. DIRECT-правила IPv6 сохраняют это намерение при отключённом IPv6.
 
-Сохраняются `bypass-system = true`, `block-quic = all-proxy` и `udp-policy-not-supported-behaviour = REJECT`. Адрес обновления профиля: `https://raw.githubusercontent.com/bouvreuil34/network-configs/main/shadowrocket/mobile.conf`.
+Сохраняются `bypass-system = true`, `block-quic = all-proxy` и `udp-policy-not-supported-behaviour = REJECT`. Адрес обновления профиля: `https://raw.githubusercontent.com/bouvreuil34/vpn-configs/main/mobile.conf`.
 
 ## Выбор VPN
 

@@ -7,7 +7,7 @@ Shadowrocket и рабочие VPN-серверы уже настроены. Э�
 Ссылка для импорта:
 
 ```text
-https://raw.githubusercontent.com/bouvreuil34/network-configs/main/shadowrocket/wifi-vladimir.conf
+https://raw.githubusercontent.com/bouvreuil34/vpn-configs/main/wifi-vladimir.conf
 ```
 
 1. Откройте Shadowrocket → **Config / Настройка**, выберите добавление

@@ -4,7 +4,7 @@
 
 ## Каталоги
 
-- `shadowrocket/` — конфиги и правила Shadowrocket.
+- `shadowrocket/` — списки правил и копии профилей для обновления по прежним ссылкам.
 - `netcraze/` — конфиги домашней сети и оборудования Netcraze.
 - `vpn/` — конфиги VPN без секретов и приватных ключей.
 - `scripts/` — проверка ICMP/TCP и SSH-туннели; команды в [docs/tools.md](docs/tools.md).
@@ -18,8 +18,7 @@ cd vpn-configs
 ./scripts/ssh-tunnel.sh socks my-vps 1080
 ```
 
-В Shadowrocket импортируйте нужный профиль: `shadowrocket/mobile.conf`,
-`shadowrocket/wifi.conf`, `shadowrocket/wifi-home.conf` или `shadowrocket/wifi-vladimir.conf`.
+В Shadowrocket импортируйте нужный профиль по ссылке из раздела «Профили Shadowrocket».
 Намеренное поведение и зависимости профилей описаны в [mobile](docs/mobile.md),
 [wifi](docs/wifi.md), [wifi-home](docs/wifi-home.md) и [wifi-vladimir](docs/wifi-vladimir.md).
 Подписки и сами VPN-серверы восстановите отдельно в приложении:
@@ -33,10 +32,12 @@ backup. Серверную ОС и сервисы этот репозитори�
 
 ## Профили Shadowrocket
 
-- `shadowrocket/mobile.conf` — мобильная сеть.
-- `shadowrocket/wifi.conf` — обычный Wi-Fi, без удалённого доступа к домашней LAN; локальная LAN напрямую.
-- `shadowrocket/wifi-home.conf` — Wi-Fi с удалённым доступом к домашней LAN.
-- `shadowrocket/wifi-vladimir.conf` — Wi-Fi-профиль Владимира для macOS; правила совпадают с `wifi.conf`, адрес обновления отдельный.
+- [mobile.conf](https://raw.githubusercontent.com/bouvreuil34/vpn-configs/main/mobile.conf) — мобильная сеть.
+- [wifi.conf](https://raw.githubusercontent.com/bouvreuil34/vpn-configs/main/wifi.conf) — обычный Wi-Fi, без удалённого доступа к домашней LAN. Локальная LAN идёт напрямую.
+- [wifi-home.conf](https://raw.githubusercontent.com/bouvreuil34/vpn-configs/main/wifi-home.conf) — Wi-Fi с удалённым доступом к домашней LAN.
+- [wifi-vladimir.conf](https://raw.githubusercontent.com/bouvreuil34/vpn-configs/main/wifi-vladimir.conf) — Wi-Fi-профиль Владимира для macOS. Правила совпадают с `wifi.conf`, адрес обновления отдельный.
+
+Правки профилей вносите в `.conf` в корне репозитория. Копии в `shadowrocket/` содержат новые `update-url` для перехода со старых ссылок.
 
 ## Обновление Shadowrocket и списков
 

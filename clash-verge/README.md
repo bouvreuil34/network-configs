@@ -32,4 +32,4 @@ function main(config) {
 
 URL подписки и скачанные узлы хранятся на ноутбуке. С GitHub загружаются профили и публичные списки правил. Профили переключаются вручную.
 
-Маршруты перенесены из [Wi‑Fi](../shadowrocket/wifi.conf) и [Mobile](../shadowrocket/mobile.conf). Текстовые списки используют совместимые типы правил Mihomo. Для Apple и YouTube подключены списки Clash от тех же авторов. Mihomo использует системный DNS в Wi‑Fi, а в Mobile добавляет DNS-over-HTTPS через LTE для основных проксируемых списков. Правки в самих файлах Shadowrocket нужно переносить в YAML, а списки `rule-providers` обновляются по своим URL.
+Маршруты перенесены из [Wi‑Fi](../wifi.conf) и [Mobile](../mobile.conf). Текстовые списки используют совместимые типы правил Mihomo. Для Apple и YouTube подключены списки Clash от тех же авторов. Mihomo использует системный DNS в Wi‑Fi, а в Mobile добавляет DNS-over-HTTPS через LTE для основных проксируемых списков. Правки в самих файлах Shadowrocket нужно переносить в YAML, а списки `rule-providers` обновляются по своим URL.
