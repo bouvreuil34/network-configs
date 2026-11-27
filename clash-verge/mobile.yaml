@@ -192,6 +192,9 @@ rules:
   - 'IP-CIDR6,FE80::/10,DIRECT,no-resolve'
   - 'IP-CIDR6,FF00::/8,DIRECT,no-resolve'
 
+  # IP check
+  - 'SUB-RULE,(DOMAIN-SUFFIX,2ip.io),via-lte'
+
   # ATOMIC PR
   - 'SUB-RULE,(DOMAIN-SUFFIX,atomic-pr.ru),via-russia'
 
